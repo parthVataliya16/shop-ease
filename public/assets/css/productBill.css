@@ -1,0 +1,19 @@
+.bill {
+    margin-top: 2%;
+    border: 1px solid #00000077;
+    padding: 2%;
+    height: fit-content;
+    padding-bottom: 5%;
+}
+
+.bill .billDetail, .totalAmount {
+    font-weight: bolder;
+}
+
+.bill .row .mrp, .discountMRP, .platformFee, .shippingFee, .amount {
+    text-align: end;
+}
+
+.bill .discountMRP, .shippingFee {
+    color: #00000077;
+}

@@ -1,0 +1,13 @@
+.noProducts {
+    display: none;
+}
+
+.noProduct div {
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15%;
+}
+

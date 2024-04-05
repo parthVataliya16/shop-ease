@@ -1,0 +1,18 @@
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px;
+    position: sticky;
+    top: 0;
+}
+
+.navbar .btn {
+    background-color: #cb6b6b;
+}
+
+.navbar .btn:hover {
+    background-color: #cb6b6bb4;
+}
+
+.navbar .btn:active {
+    background-color: #f16060;
+}

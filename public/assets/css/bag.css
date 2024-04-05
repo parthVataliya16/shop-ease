@@ -1,0 +1,118 @@
+
+.emptyBag {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+.empty {
+    display: none;
+}
+
+.emptyBag .addToCart button{
+    border: none;
+    background-color: #ad90908c;
+    padding: 10px;
+    border-radius: 10px;
+    color: #ffffff;
+}
+
+.emptyBag .addToCart button:hover {
+    background-color: #ffffff;
+    border: 2px solid #ad90908c;
+    color: #ad9090;
+}
+
+.products .removeProduct .remove {
+    border: 1px solid #000000;
+    border-radius: 50%;
+    position: absolute;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.products .productListing .productImage img {
+    max-width: 200px;
+    padding: 10%;
+}
+
+.products .productListing .productDetail {
+    margin-top:  3%;
+    padding: 2%;
+    border: 1px solid #00000077;
+}
+
+.products .productListing .productDetails {
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.products .productListing .productDetails a {
+    color: #000000;;
+    text-decoration: none;
+}
+
+.products .productListing .discountPrice {
+    font-weight: 500;
+}
+
+.products .productListing .originalPrice {
+    color: #00000077;
+}
+
+.products .productListing .discount {
+    color: #00ff00;
+    font-weight: 500;
+}
+
+.products .productDetails .productQuantity {
+    display: flex;
+}
+
+.quantity {
+    text-align: center;
+}
+
+.quantity input, .quantity button {
+    width: 30px;
+    background-color: transparent;
+    border: none;
+    text-align: center;
+}
+
+.quantity .reduceQuantity {
+    border-left: 1px solid #000000;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top-left-radius: 25%;
+    border-bottom-left-radius: 25%;
+}
+
+.quantity .addQuantity {
+    border-right: 1px solid #000000;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top-right-radius: 25%;
+    border-bottom-right-radius: 25%;
+}
+
+.quantity .numberOfQuantity {
+    border: 1px solid #000000;
+}
+
+.products .bill .order {
+    border: none;
+    background-color: #8bd4e5;
+    padding: 2%;
+    color: #ffffff;
+    border-radius: 10px;
+    width: -webkit-fill-available;
+}
+
+.products .bill .order:hover {
+    border: 2px solid #8bd4e5;
+    background-color: #ffffff;
+    color: #3fa8c0;
+}
+
