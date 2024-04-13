@@ -68,4 +68,5 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://kit.fontawesome.com/830d1515a6.js" crossorigin="anonymous"></script>
     <script src="./../../public/assets/js/bag.js" type="module"></script>
+    <script src="./../../public/assets/js/navbar.js"></script>
 </html>

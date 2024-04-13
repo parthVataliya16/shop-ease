@@ -112,7 +112,7 @@
                         <div class="row">
                             <!-- <a href="payment.php"> -->
                                 <!-- <button class="countinue">Place order</button> -->
-                                <form class="countinue" action="payment_success.php" id="placeOrder" method="POST">
+                                <form class="countinue" action="./../../routes/web.php/paymentSuccess" id="placeOrder" method="POST">
                                     <input type="hidden" custom="Hidden Element" name="hidden">
                                 </form>
                             <!-- </a> -->

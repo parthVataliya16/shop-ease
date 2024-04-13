@@ -31,7 +31,7 @@
 
             <div class="bestDealProduct" id="bestDealProduct">
                 <div class="heading">
-                    <h3>Best deal <a href="#bestDealProduct">#</a></h3>
+                    <h3>Best deal <span><a href="#bestDealProduct">#</a></span></h3>
                 </div>
                 <hr>
                 <div class="dealProducts">
@@ -45,7 +45,7 @@
     <section class="container mt-5">
         <div class="smartphone" id="smartphone">
             <div class="heading">
-                <h3>Smart phones <a href="#smartphone">#</a></h3>
+                <h3>Smart phones <span><a href="#smartphone">#</a></span></h3>
             </div>
             <hr>
             <div class="smartphoneProduct">
@@ -58,7 +58,7 @@
     <section class="container mt-5">
         <div class="laptop" id="laptop">
             <div class="heading">
-                <h3>Laptops <a href="#laptop">#</a></h3>
+                <h3>Laptops <span><a href="#laptop">#</a></span></h3>
             </div>
             <hr>
             <div class="laptopProduct">
@@ -71,7 +71,7 @@
     <section class="container mt-5">
         <div class="ac" id="ac">
             <div class="heading">
-                <h3>AC <a href="#ac">#</a></h3>
+                <h3>AC <span><a href="#ac">#</a></span></h3>
             </div>
             <hr>
             <div class="acProduct">
@@ -94,5 +94,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"> </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://kit.fontawesome.com/830d1515a6.js" crossorigin="anonymous"></script>
+    <script src="./../../public/assets/js/navbar.js"></script>
     <script src="./../../public/assets/js/index.js" type="module"></script>
 </html>

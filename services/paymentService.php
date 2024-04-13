@@ -33,6 +33,12 @@ class PaymentGateway
         header("content-type: application/json");
         return json_encode($response);
     }
+
+    public function getPaymentStatus($orderId)
+    {
+        $orderArr = $this->api->order->fetch($orderId);
+        return $orderArr['status'];
+    }
 }
 
 

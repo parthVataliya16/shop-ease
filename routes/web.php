@@ -25,6 +25,7 @@ require_once './../Controllers/User/UpdateAddress.php';
 require_once './../Controllers/User/CategoricalProduct.php';
 require_once './../Controllers/User/DealProducts.php';
 require_once './../Controllers/User/PlaceOrder.php';
+require_once './../Controllers/User/PaymentSuccess.php';
 // require_once './../Controllers/User/GenderViseProduct.php';
 require_once './../Controllers/GetCategory.php';
 require_once './../Controllers/GetProduct.php';
@@ -36,7 +37,6 @@ require_once './../services/paymentService.php';
 
 require_once './../middleware/sanitizeData.php';
 require_once './../middleware/errorLog.php';
-require_once './../productImages.php';
 
 $dotenv = Dotenv::createImmutable('./../');
 $dotenv->load();
@@ -46,12 +46,14 @@ $payment = require_once('./../config/payment.php');
 $serverRequest = $_SERVER['REQUEST_METHOD'];
 $endpoint = $_SERVER['PATH_INFO'];
 
-preg_match("/^\/v1\/getProduct\/(\S+)$/", $endpoint, $matches);
+preg_match("/^\/v1\/getProduct\/(\S+)$|^\/v1\/productCategoryVise\/(\S+)$/", $endpoint, $matches);
 // var_dump($matches);
 $lengthOfMatchesArr = count($matches);
 $category = "";
 if ($lengthOfMatchesArr >= 2) {
-    $category = $matches[1];
+    $category = $matches[$lengthOfMatchesArr - 1];
+    $categoryName = strtolower($category);
+    $price = require_once "./../config/$categoryName.php";
 }
 
 preg_match("/^\/v1\/addToCart\/(\d+)$|^\/v1\/removeProductFromCart\/(\d+)$|\/v1\/getProduct\/(\d+)$|\/v1\/addToBag\/(\d+)$|\/v1\/removeProductFromBag\/(\d+)$|\/v1\/address\/(\d+)$|\/v1\/updateAddress\/(\d+)$|^\/v1\/categoricalProduct\/(\d+)$|\/v1\/getProductBrand\/(\d+)$/", $endpoint, $matches);
@@ -105,6 +107,10 @@ switch ($serverRequest) {
                 $placeOrder = new PlaceOrder();
                 echo $placeOrder->placeOrder();
                 break;
+            case "/paymentSuccess":
+                $paymentSuccess = new PaymentSuccess();
+                echo $paymentSuccess->paymentSuccess();
+                break;
         }
         break;
         // if ($endpoint == '/addProduct') {
@@ -121,7 +127,11 @@ switch ($serverRequest) {
                 break;
             case "/v1/getProduct":
                 $getProductDetail = new GetProduct();
-                echo $getProductDetail->getProduct();
+                if (isset($_GET['id'])) {
+                    echo $getProductDetail->getProduct($_GET['id']);
+                } else {    
+                    echo $getProductDetail->getProduct();
+                }
                 break;
             case "/v1/getProduct/{$id}":
                 $getProductDetail = new GetProduct();
@@ -144,11 +154,9 @@ switch ($serverRequest) {
                 $productsIntoCart = new ProductsIntoCart();
                 echo $productsIntoCart->productsIntoCart();
                 break;
-            case '/v1/productCategoryVise':
-                if (isset($_GET['categoryId'])) {
-                    $categoryViseProduct = new CategoryViseProduct();
-                    echo $categoryViseProduct->categoryViseProduct($_GET['categoryId']);
-                }
+            case "/v1/productCategoryVise/{$category}":
+                $categoryViseProduct = new CategoryViseProduct();
+                echo $categoryViseProduct->categoryViseProduct($category);
                 break;
             case '/v1/productIntoBag':
                 $productIntoBag = new ProductIntoBag();

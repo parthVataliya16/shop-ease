@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     $.ajax({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/getProduct/${id}`,
+        url: `/practice/Project/routes/web.php/v1/getProduct?id=${id}`,
         success: function(result) {
             console.log(result);
             if (result.response.status == 200) {

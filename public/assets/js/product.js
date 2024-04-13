@@ -6,6 +6,80 @@ $(document).ready(function(){
         $(".cta").css("display", "flex");
     });
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get("category");
+    console.log(category);
+
+    if (category == null) {
+        $.ajax({
+            method: 'GET',
+            url: '/practice/Project/routes/web.php/v1/getProductsToUser',
+            success: function(result) {
+                if (result.response.status == 200) {
+                    productListing(result.products);
+                    
+                } else {
+                    document.getElementById("allProducts").innerHTML = result.response.message;
+                }
+            }
+        });
+    } else {
+        $.ajax({
+            method: 'GET',
+            url: `/practice/Project/routes/web.php/v1/productCategoryVise/${category}`,
+            success: function(result) {     
+                console.log(result);
+                if (result.status == 200) {
+                    document.getElementsByClassName("priceFilter")[0].innerHTML = "";
+                    productListing(result.products);
+
+                    const totalPriceFilter = result.price.length;
+                    result.price.forEach((price, index) => {
+                        if (index != totalPriceFilter - 1) {
+                        const priceFilter = document.createElement("div");
+                        document.getElementsByClassName("priceFilter")[0].appendChild(priceFilter);
+                        priceFilter.classList.add("price");
+
+                        const priceAmt = document.createElement("input");
+                        document.getElementsByClassName("price")[index].appendChild(priceAmt);
+                        priceAmt.setAttribute("type", "checkbox");
+                        priceAmt.setAttribute("name", "price");
+                        priceAmt.setAttribute("id", `${price}-${result.price[index + 1]}`);
+
+                        const priceTitle = document.createElement("label");
+                        document.getElementsByClassName("price")[index].appendChild(priceTitle);
+                        priceTitle.classList.add("ms-2");
+                        priceTitle.innerHTML = `&#8377;${price} to &#8377;${result.price[index + 1]}`;
+                        } else {
+                            return;
+                        }
+                    });
+
+                    document.getElementsByClassName("brand-title")[0].innerHTML = "Brand";
+
+                    result.brand.forEach((brand, index) => {
+                        const brandFilter = document.createElement("div");
+                        document.getElementsByClassName("brandFilter")[0].appendChild(brandFilter);
+                        brandFilter.classList.add("brand");
+
+                        const brandCheckbox = document.createElement("input");
+                        document.getElementsByClassName("brand")[index].appendChild(brandCheckbox);
+                        brandCheckbox.setAttribute("type", "checkbox");
+                        brandCheckbox.setAttribute("name", "brand");
+                        brandCheckbox.setAttribute("id", brand);
+
+                        const brandTitle = document.createElement("label");
+                        document.getElementsByClassName("brand")[index].appendChild(brandTitle);
+                        brandTitle.classList.add("ms-2");
+                        brandTitle.innerHTML = brand.brand_name;
+                    })
+                } else {
+                    // document.getElementById("allProducts").innerHTML = result.response.message;
+                }
+            }
+        });
+    }
+
     // $.ajax({
     //     method: 'GET',
     //     url: `/practice/Project/routes/web.php/v1/getCategory`,
@@ -65,18 +139,7 @@ $(document).ready(function(){
     //     })
     // })
 
-    $.ajax({
-        method: 'GET',
-        url: '/practice/Project/routes/web.php/v1/getProductsToUser',
-        success: function(result) {
-            if (result.response.status == 200) {
-                productListing(result.products);
-                
-            } else {
-                document.getElementById("allProducts").innerHTML = result.response.message;
-            }
-        }
-    });
+    
 
     document.getElementById("searchProduct").addEventListener("keyup", () => {
         const searchValue = document.getElementById("searchProduct").value;
@@ -95,25 +158,3 @@ $(document).ready(function(){
     });
     
 });
-
-const filterProductCategoryVise = (categoryId) => {
-    $.ajax({
-        method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/productCategoryVise?categoryId=${categoryId}`,
-        success: function(result) {
-            console.log(result);
-            if (result.status == 200) {
-                $(".products").removeClass("empty");
-                $(".noProduct").addClass("empty");  
-                productListing(result.products);
-            } else {
-                $(".products").addClass("empty");
-                $(".noProduct").removeClass("empty");  
-            }
-        }
-    })
-}
-
-
-
-// export {productListing};

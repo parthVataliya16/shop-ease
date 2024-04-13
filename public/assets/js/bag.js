@@ -106,7 +106,7 @@ const productListing = (products) => {
         document.getElementsByClassName("quantity")[numberOfQuantityClass - 1].appendChild(numberOfQuantity);
         numberOfQuantity.classList.add("numberOfQuantity");
         numberOfQuantity.setAttribute("disabled", "");
-        numberOfQuantity.setAttribute("id", `${product['quantity']}`);
+        numberOfQuantity.setAttribute("id", `${product['quantity']}_${product.id}`);
         numberOfQuantity.value = "1";
 
         const addQuantity = document.createElement("button");
@@ -185,6 +185,7 @@ const removeFromBag = (id) => {
 const totalMRP = () => {
     let totalMRP = 0;
     let discountMRP = 0;
+    let quantityArr = [];
     const allProductMRP = document.querySelectorAll(".discountPrice");
     const discoutnOfAllProduct = document.querySelectorAll(".originalPrice");
     const quantityOfAllProduct = document.querySelectorAll(".numberOfQuantity");
@@ -194,10 +195,16 @@ const totalMRP = () => {
         const discount = + discoutnOfAllProduct[index].innerHTML.slice(1);
         discountMRP += (discount - mrp) * quantity;
         totalMRP += mrp*quantity;
+        console.log(quantityOfAllProduct[index]);
+        const arr = [quantityOfAllProduct[index].getAttribute('id').split("_")[1], quantity];
+        
+        quantityArr.push(arr);
     });
     document.getElementsByClassName("mrp")[0].innerHTML =  `&#8377;${totalMRP}`;
     document.getElementsByClassName("discountMRP")[0].innerHTML = `-&#8377;${discountMRP}`;
     document.getElementsByClassName("amount")[0].innerHTML = `&#8377;${totalMRP + 20}`;
+
+    console.log(quantityArr);
 }
 
 const orderButton = document.getElementsByClassName("order")[0];

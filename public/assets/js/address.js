@@ -24,7 +24,7 @@ window.onload = () => {
             script.setAttribute("data-key", result.apiKey);
             script.setAttribute("data-amount", result.amount);
             script.setAttribute("data-currency", "INR");
-            script.setAttribute("data-order-id", result.id);
+            script.setAttribute("data-order_id", result.id);
             script.setAttribute("data-buttontext", "Place order");
             script.setAttribute("data-name", "Shop ease");
             script.setAttribute("data-description", "product detail");

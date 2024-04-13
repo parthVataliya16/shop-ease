@@ -21,10 +21,33 @@
     <div class="row m-0">
         <div class="col-lg-2 filter">
             <aside>
-                <div class="productFilter">
-                    <div class="productCategory">
-
+                <div class="productPriceFilter d-flex justify-content-center flex-column mt-4">
+                    <div class="priceFilter-title">
+                        <h4>Price</h4>
                     </div>
+                    <div class="priceFilter">
+                        <div class="price">
+                            <input type="checkbox" name="price" id="10000">
+                            <label for="price" class="ms-2">&#8377;10000 to &#8377;20000</label>
+                        </div>
+                        <div class="price">
+                            <input type="checkbox" name="price" id="10000">
+                            <label for="price" class="ms-2">&#8377;20000 to &#8377;30000</label>
+                        </div>
+                        <div class="price">
+                            <input type="checkbox" name="price" id="10000">
+                            <label for="price" class="ms-2">&#8377;30000 to &#8377;40000</label>
+                        </div>
+                        <div class="price">
+                            <input type="checkbox" name="price" id="10000">
+                            <label for="price" class="ms-2">&#8377;40000 to &#8377;50000</label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="productBrandFilter d-flex justify-content-center flex-column mt-4">
+                    <div class="brandFilter-title"><h4 class="brand-title"></h4></div>
+                    <div class="brandFilter"></div>
                 </div>
             </aside>
         </div>
@@ -59,5 +82,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://kit.fontawesome.com/830d1515a6.js" crossorigin="anonymous"></script>
+    <script src="./../../public/assets/js/navbar.js"></script>
     <script src="./../../public/assets/js/product.js" type="module"></script>
 </html>
