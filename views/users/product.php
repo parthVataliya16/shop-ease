@@ -11,7 +11,7 @@
         <!-- <link rel="stylesheet" href="./../../public/assets/css/noProduct.css"> -->
         <title>Document</title>
     </head>
-    <body style="background-color: #f0fff8;">
+    <body > <!--style="background-color: #f0fff8;"-->
     <?php
     require_once './../../middleware/checkUserLogin.php';
 
@@ -27,19 +27,19 @@
                     </div>
                     <div class="priceFilter">
                         <div class="price">
-                            <input type="checkbox" name="price" id="10000">
+                            <input type="checkbox" class="priceCheckbox" name="price" id="10000-20000">
                             <label for="price" class="ms-2">&#8377;10000 to &#8377;20000</label>
                         </div>
                         <div class="price">
-                            <input type="checkbox" name="price" id="10000">
+                            <input type="checkbox" class="priceCheckbox" name="price" id="20000-30000">
                             <label for="price" class="ms-2">&#8377;20000 to &#8377;30000</label>
                         </div>
                         <div class="price">
-                            <input type="checkbox" name="price" id="10000">
+                            <input type="checkbox" class="priceCheckbox" name="price" id="30000-40000">
                             <label for="price" class="ms-2">&#8377;30000 to &#8377;40000</label>
                         </div>
                         <div class="price">
-                            <input type="checkbox" name="price" id="10000">
+                            <input type="checkbox" class="priceCheckbox" name="price" id="40000-50000">
                             <label for="price" class="ms-2">&#8377;40000 to &#8377;50000</label>
                         </div>
                     </div>

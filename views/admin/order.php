@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,31 +9,26 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
         <link rel="stylesheet" href="./../../public/assets/css/navbar.css">
         <link rel="stylesheet" href="./../../public/assets/css/sidebar.css">
-        <link rel="stylesheet" href="./../../public/assets/css/dashboard.css">
+        <link rel="stylesheet" href="./../../public/assets/css/adminOrder.css">
         <title>Document</title>
     </head>
     <body>
-        <?php
+    <?php
         require_once './../../middleware/checkUserLogin.php';
 
         if (loginSuccessfully('admin')) {
             require_once './layout/navbar.php';
             require_once './layout/sidebar.php';
         ?>
-            <section class="container-fluid productTable">
+            <section class="container-fluid ordertable">
                 <table class="table">
                     <thead>
-                        <th>Name</th>
-                        <th>Price</th>
+                        <th>User name</th>
+                        <th>Product name</th>
                         <th>Quantity</th>
-                        <th>discount (in %)</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Brand</th>
-                        <th>Action</th>
-                        <!-- <th></th> -->
+                        <th>Status</th>
                     </thead>
-                    <tbody class="products">
+                    <tbody class="orders">
                         
                     </tbody>
                     <div>
@@ -56,5 +51,5 @@
     <script src="https://kit.fontawesome.com/830d1515a6.js" crossorigin="anonymous"></script>
     <script src="./../../public/assets/js/adminNavbar.js"></script>
     <script src="./../../public/assets/js/sidebar.js"></script>
-    <script src="./../../public/assets/js/dashboard.js"></script>
+    <script src="./../../public/assets/js/adminSideOrder.js"></script>
 </html>

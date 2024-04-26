@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="./../../public/assets/css/body.css">
         <title>Document</title>
     </head>
-    <body style="background-color: #f0fff8;">
+    <body>
     <?php
     require_once './../../middleware/checkUserLogin.php';
 
@@ -31,7 +31,7 @@
 
             <div class="bestDealProduct" id="bestDealProduct">
                 <div class="heading">
-                    <h3>Best deal <span><a href="#bestDealProduct">#</a></span></h3>
+                    <h3>Best deal</h3>
                 </div>
                 <hr>
                 <div class="dealProducts">
@@ -45,7 +45,7 @@
     <section class="container mt-5">
         <div class="smartphone" id="smartphone">
             <div class="heading">
-                <h3>Smart phones <span><a href="#smartphone">#</a></span></h3>
+                <h3>Smart phones</h3>
             </div>
             <hr>
             <div class="smartphoneProduct">
@@ -58,7 +58,7 @@
     <section class="container mt-5">
         <div class="laptop" id="laptop">
             <div class="heading">
-                <h3>Laptops <span><a href="#laptop">#</a></span></h3>
+                <h3>Laptops</h3>
             </div>
             <hr>
             <div class="laptopProduct">
@@ -71,7 +71,7 @@
     <section class="container mt-5">
         <div class="ac" id="ac">
             <div class="heading">
-                <h3>AC <span><a href="#ac">#</a></span></h3>
+                <h3>AC</h3>
             </div>
             <hr>
             <div class="acProduct">

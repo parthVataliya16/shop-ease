@@ -2,6 +2,10 @@
 use Dotenv\Dotenv;
 
 require_once './../vendor/autoload.php';
+
+require_once './../services/paymentService.php';
+require_once './../services/mailService.php';
+
 require_once './../Controllers/Connection.php';
 
 require_once './../Controllers/Auth/Login.php';
@@ -10,14 +14,17 @@ require_once './../Controllers/Auth/Register.php';
 require_once './../Controllers/Admin/AddProduct.php';
 require_once './../Controllers/Admin/DeleteProduct.php';
 require_once './../Controllers/Admin/UpdateProduct.php';
+require_once './../Controllers/Admin/AllOrders.php';
+require_once './../Controllers/Admin/AddNewCategory.php';
+require_once './../Controllers/Admin/DeleteCategory.php';
 
 require_once './../Controllers/User/GetProductToUser.php';
-require_once './../Controllers/User/ProductsIntocart.php';
+require_once './../Controllers/User/Products.php';
 require_once './../Controllers/User/AddToCart.php';
 require_once './../Controllers/User/RemoveProductFromCart.php';
 require_once './../Controllers/User/CategoryViseProduct.php';
 require_once './../Controllers/User/AddToBag.php';
-require_once './../Controllers/User/ProductIntoBag.php';
+// require_once './../Controllers/User/ProductIntoBag.php';
 require_once './../Controllers/User/RemoveProductFromBag.php';
 require_once './../Controllers/User/Address.php';
 require_once './../Controllers/User/AddAddress.php';
@@ -26,14 +33,15 @@ require_once './../Controllers/User/CategoricalProduct.php';
 require_once './../Controllers/User/DealProducts.php';
 require_once './../Controllers/User/PlaceOrder.php';
 require_once './../Controllers/User/PaymentSuccess.php';
+require_once './../Controllers/User/OrderSuccessfull.php';
+require_once './../Controllers/User/FilterProduct.php';
 // require_once './../Controllers/User/GenderViseProduct.php';
-require_once './../Controllers/GetCategory.php';
+require_once './../Controllers/Category.php';
 require_once './../Controllers/GetProduct.php';
 require_once './../Controllers/Profile.php';
 require_once './../Controllers/UpdateProfile.php';
 require_once './../Controllers/ProductBrand.php';
 
-require_once './../services/paymentService.php';
 
 require_once './../middleware/sanitizeData.php';
 require_once './../middleware/errorLog.php';
@@ -42,6 +50,7 @@ $dotenv = Dotenv::createImmutable('./../');
 $dotenv->load();
 $database = require_once('./../config/database.php');
 $payment = require_once('./../config/payment.php');
+$mail = require_once('./../config/mail.php');
 
 $serverRequest = $_SERVER['REQUEST_METHOD'];
 $endpoint = $_SERVER['PATH_INFO'];
@@ -56,7 +65,7 @@ if ($lengthOfMatchesArr >= 2) {
     $price = require_once "./../config/$categoryName.php";
 }
 
-preg_match("/^\/v1\/addToCart\/(\d+)$|^\/v1\/removeProductFromCart\/(\d+)$|\/v1\/getProduct\/(\d+)$|\/v1\/addToBag\/(\d+)$|\/v1\/removeProductFromBag\/(\d+)$|\/v1\/address\/(\d+)$|\/v1\/updateAddress\/(\d+)$|^\/v1\/categoricalProduct\/(\d+)$|\/v1\/getProductBrand\/(\d+)$/", $endpoint, $matches);
+preg_match("/^\/v1\/addToCart\/(\d+)$|^\/v1\/removeProductFromCart\/(\d+)$|^\/v1\/getProduct\/(\d+)$|^\/v1\/addToBag\/(\d+)$|^\/v1\/removeProductFromBag\/(\d+)$|^\/v1\/address\/(\d+)$|^\/v1\/updateAddress\/(\d+)$|^\/v1\/categoricalProduct\/(\d+)$|^\/v1\/getProductBrand\/(\d+)$|^\/v1\/deleteCategory\/(\d+)$|^\/v1\/getCategory\/(\d+)$|^\/v1\/updateCategory\/(\d+)$|^\/v1\/deleteBrand\/(\d+)$|^\/v1\/getBrand\/(\d+)$|\/v1\/updateBrand\/(\d+)$/", $endpoint, $matches);
 $id = 0;
 $lengthOfMatchesArr = count($matches);
 
@@ -107,9 +116,29 @@ switch ($serverRequest) {
                 $placeOrder = new PlaceOrder();
                 echo $placeOrder->placeOrder();
                 break;
-            case "/paymentSuccess":
+            case "/v1/paymentSuccess":
                 $paymentSuccess = new PaymentSuccess();
-                echo $paymentSuccess->paymentSuccess();
+                $paymentSuccess->paymentSuccess();
+                break;
+            case "/v1/orderSuccessfull":
+                $orderSuccessfull = new OrderSuccessfull();
+                echo $orderSuccessfull->orderSuccessfull();
+                break;
+            case "/v1/addNewCategory":
+                $addNewCategory = new AddNewCategory();
+                echo $addNewCategory->addNewCategory();
+                break;
+            case "/v1/updateCategory/{$id}":
+                $updateCategory = new Category();
+                echo $updateCategory->updateCategory($id);
+                break;
+            case "/v1/addBrand":
+                $addBrand = new ProductBrand();
+                echo $addBrand->addBrand();
+                break;
+            case "/v1/updateBrand/{$id}":
+                $updateBrand = new ProductBrand();
+                echo $updateBrand->updateBrand($id);
                 break;
         }
         break;
@@ -122,8 +151,12 @@ switch ($serverRequest) {
     case 'GET':
         switch ($endpoint) {
             case '/v1/getCategory':
-                $categories = new GetCategory();
+                $categories = new Category();
                 echo $categories->getCategory();
+                break;
+            case "/v1/getCategory/{$id}":
+                $categories = new Category();
+                echo $categories->getCategory($id);
                 break;
             case "/v1/getProduct":
                 $getProductDetail = new GetProduct();
@@ -150,17 +183,21 @@ switch ($serverRequest) {
                     echo $getProductsToUser->getProductsToUser();
                 }
                 break;
-            case '/v1/productIntoCart':
-                $productsIntoCart = new ProductsIntoCart();
-                echo $productsIntoCart->productsIntoCart();
+            case '/v1/productInto-Cart':
+                $products = new Products();
+                echo $products->products('carts');
                 break;
             case "/v1/productCategoryVise/{$category}":
                 $categoryViseProduct = new CategoryViseProduct();
                 echo $categoryViseProduct->categoryViseProduct($category);
                 break;
-            case '/v1/productIntoBag':
-                $productIntoBag = new ProductIntoBag();
-                echo $productIntoBag->productIntoBag();
+            case '/v1/productInto-Bag':
+                $products = new Products();
+                echo $products->products('bags');
+                break;
+            case '/v1/productInto-Order':
+                $products = new Products();
+                echo $products->products('orders');
                 break;
             case '/v1/address':
                 $addresses = new Address();
@@ -178,13 +215,32 @@ switch ($serverRequest) {
                 $profile = new Profile();
                 echo $profile->profile();
                 break;
+            case "/v1/getBrand":
+                $productBrand = new ProductBrand();
+                echo $productBrand->productBrand();
+                break;
             case "/v1/getProductBrand/{$id}":
                 $productBrand = new ProductBrand();
                 echo $productBrand->productBrand($id);
                 break;
+            case "/v1/getBrand/{$id}":
+                $getBrand = new ProductBrand();
+                echo $getBrand->getBrand($id);
+                break;
             case "/v1/dealProducts":
                 $dealProducts = new DealProducts();
                 echo $dealProducts->dealProducts();
+                break;
+            case "/v1/allOrders":
+                $allOrders = new AllOrders();
+                echo $allOrders->allOrders();
+                break;
+            case "/v1/filterProduct":
+                if (isset($_GET['price'])) {
+                    $filterProduct = new FilterProduct();
+                    echo $filterProduct->filterProduct($_GET['price']);
+                }
+                break;
         }
         break;
 
@@ -210,6 +266,15 @@ switch ($serverRequest) {
             case "/v1/removeProductFromBag/{$id}":
                 $removeProductFromBag = new RemoveProductFromBag();
                 echo $removeProductFromBag->removeProductFromBag($id);
+                break;
+            case "/v1/deleteCategory/{$id}":
+                $deleteCategory = new DeleteCategory();
+                echo $deleteCategory->deleteCategory($id);
+                break;
+            case "/v1/deleteBrand/{$id}":
+                $deleteBrand = new ProductBrand();
+                echo $deleteBrand->deleteBrand($id);
+                break;
         }
         break;
 

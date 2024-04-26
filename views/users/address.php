@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./../../public/assets/css/body.css">
     <link rel="stylesheet" href="./../../public/assets/css/productBill.css">
     <link rel="stylesheet" href="./../../public/assets/css/address.css">
+    <!-- <link rel="stylesheet" href="./../../public/assets/css/loader.css"> -->
     <title>Document</title>
 </head>
 
@@ -21,7 +22,7 @@
     if (loginSuccessfully()) {
         require_once './layout/navbar.php';
         // require_once './../../vendor/autoload.php';
-        
+
         // $dotenv = Dotenv::createImmutable('./../../');
         // $dotenv->load();
         // $database = require_once('./../../config/database.php');
@@ -35,7 +36,19 @@
             <div class="address container mt-4">
                 <div class="row">
                     <div class="addresses d-flex flex-column col-lg-8">
+                        <div class="paymentOptions container mb-3">
+                            <h5 class="mb-3">Select payment option </h5>
+                            <div class="codOption mb-2">
+                                <input type="radio" name="payment" id="payment" value="cod">
+                                <label for="cod">Cash on delivery</label>
+                            </div>
+                            <div class="onlineOption mb-2">
+                                <input type="radio" name="payment" id="payment" value="online">
+                                <label for="online">UPI/ Debit card/ Credit card</label>
+                            </div>
+                        </div>
                         <div class="allAddresses">
+                            <h5 class="mb-3">Select delivery address</h5>
                         </div>
                         <div class="addNewAddress">
                             <a type="button" class="addAddress" data-bs-toggle="modal" data-bs-target="#model">+ Add new address</a>
@@ -105,22 +118,32 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bill col-lg-4">
+                    <div class=" col-lg-4">
+                        <div class="bill">
+
                         <?php
                         require_once './layout/productBill.php';
                         ?>
-                        <div class="row">
+                        <div class="placeOrder">
                             <!-- <a href="payment.php"> -->
-                                <!-- <button class="countinue">Place order</button> -->
-                                <form class="countinue" action="./../../routes/web.php/paymentSuccess" id="placeOrder" method="POST">
-                                    <input type="hidden" custom="Hidden Element" name="hidden">
-                                </form>
+                            <!-- <button class="countinue">Place order</button> -->
+                            <!-- <form class="countinue" action="./../../routes/web.php/v1/paymentSuccess" id="placeOrder" method="POST">
+                                <input type="hidden" custom="Hidden Element" name="hidden">
+                                <input type="submit" name="place order" id="placeOrderButton" value="place order">
+                            </form> -->
+                            <?php require_once './layout/loader.php'?>
+                            <a class="submitPlaceOrder" href="" >
+                                <button class="placeOrderButton btn btn-outline-success">Place Order</button>
+                            </a>
                             <!-- </a> -->
+                        </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     <?php
     } else {
         header("location: ./../auth/signin.php");
@@ -132,6 +155,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="https://kit.fontawesome.com/830d1515a6.js" crossorigin="anonymous"></script>
+<script src="./../../public/assets/js/navbar.js"></script>
 <script src="./../../public/assets/js/address.js" type="module"></script>
 
 </html>

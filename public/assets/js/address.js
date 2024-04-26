@@ -1,6 +1,73 @@
 import { tostifyBox } from "./functions.js";
 
 window.onload = () => {
+
+    const paymentOption = document.querySelectorAll("#payment");
+    paymentOption.forEach(payment => {
+        payment.addEventListener("change", () => {
+            console.log(payment.value);
+            const paymentValue = payment.value;
+            if (paymentValue == 'online') {
+                document.getElementsByClassName("spinner")[0].classList.remove('hideLoader');
+                document.getElementsByClassName("spinner")[0].classList.add('showLoader');
+                document.getElementsByClassName("submitPlaceOrder")[0].classList.add("hideLoader");
+                $.ajax ({
+                    method: 'POST',
+                    url: `/practice/Project/routes/web.php/v1/placeOrder`,
+                    data: {
+                        amount: mrp
+                    },
+                    success: function(result) {
+                        const buttonEle = document.getElementsByClassName("submitPlaceOrder")[0];
+                        buttonEle.remove();
+
+                        const formEle = document.createElement("form");
+                        document.getElementsByClassName("placeOrder")[0].appendChild(formEle);
+                        formEle.classList.add("continue", 'btn', 'btn-outline-success');
+                        formEle.setAttribute("action", './../../routes/web.php/v1/paymentSuccess');
+                        formEle.setAttribute("id", 'placeOrder');
+                        formEle.setAttribute("method", 'POST');
+
+                        const inputEle = document.createElement("input");
+                        document.getElementsByClassName("continue")[0].inputEle;
+                        inputEle.setAttribute("type", "hidden");
+                        inputEle.setAttribute("name", 'hidden');
+
+                        const script = document.createElement("script");
+                        document.getElementById("placeOrder").appendChild(script);
+                        script.setAttribute("src", "https://checkout.razorpay.com/v1/checkout.js");
+                        script.setAttribute("data-key", result.apiKey);
+                        script.setAttribute("data-amount", result.amount);
+                        script.setAttribute("data-currency", "INR");
+                        script.setAttribute("data-order_id", result.id);
+                        script.setAttribute("data-buttontext", "Place order");
+                        script.setAttribute("data-name", "Shop ease");
+                        script.setAttribute("data-description", "product detail");
+                        script.setAttribute("id", "placeOrderScript");
+                    },
+                    complete: function() {
+                        document.getElementsByClassName("spinner")[0].classList.remove('showLoader');
+                        document.getElementsByClassName("spinner")[0].classList.add('hideLoader');
+                    }
+                })
+            } else {
+                const formEle = document.getElementById("placeOrder");
+                formEle.remove();
+                // const inputButton = document.getElementsByClassName("razorpay-payment-button")[0];
+                // inputButton.remove();
+
+                const linkEle = document.createElement("a");
+                document.getElementsByClassName("placeOrder")[0].appendChild(linkEle);
+                linkEle.classList.add("submitPlaceOrder");
+                linkEle.setAttribute("href", "");
+                const button = document.createElement("button");
+                // document.getElementById("placeOrder").removeChild();
+                document.getElementsByClassName("submitPlaceOrder")[0].appendChild(button);
+                button.classList.add("placeOrderButton", 'btn', 'btn-outline-success');
+                button.innerHTML = "Place Order"
+            }
+        })
+    })
     const mrp = localStorage.getItem("mrp");
     const discountMRP = localStorage.getItem("discountMRP");
     const amount = localStorage.getItem("amount");
@@ -10,26 +77,7 @@ window.onload = () => {
 
     getAddress();
 
-    $.ajax ({
-        method: 'POST',
-        url: `/practice/Project/routes/web.php/v1/placeOrder`,
-        data: {
-            amount: mrp
-        },
-        success: function(result) {
-            console.log(result);
-            const script = document.createElement("script");
-            document.getElementById("placeOrder").appendChild(script);
-            script.setAttribute("src", "https://checkout.razorpay.com/v1/checkout.js");
-            script.setAttribute("data-key", result.apiKey);
-            script.setAttribute("data-amount", result.amount);
-            script.setAttribute("data-currency", "INR");
-            script.setAttribute("data-order_id", result.id);
-            script.setAttribute("data-buttontext", "Place order");
-            script.setAttribute("data-name", "Shop ease");
-            script.setAttribute("data-description", "product detail");
-        }
-    })
+    
 }
 
 const getAddress = () => {

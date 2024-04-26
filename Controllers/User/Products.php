@@ -1,5 +1,5 @@
 <?php
-class ProductsIntoCart extends Connection
+class Products extends Connection
 {
     private $status, $message;
 
@@ -8,7 +8,7 @@ class ProductsIntoCart extends Connection
         parent::__construct();
     }
 
-    public function productsIntoCart()
+    public function products($tableName)
     {
         try {
             $productsArr = [];
@@ -18,13 +18,27 @@ class ProductsIntoCart extends Connection
             if ($selectUserIdQuery->num_rows) {
                 $row = $selectUserIdQuery->fetch_assoc();
                 $suerId = $row['id'];
-                $productIdIntoCartQuery = $this->connection->query("SELECT product_id from carts where user_id = $suerId");
-
+                if ($tableName == 'orders') {
+                    $productIdIntoCartQuery = $this->connection->query("SELECT product_id, status from " . $tableName . " where user_id = $suerId");
+                } else {
+                    $productIdIntoCartQuery = $this->connection->query("SELECT product_id from " . $tableName . " where user_id = $suerId");
+                }
+                
                 if ($productIdIntoCartQuery->num_rows) {
                     while ($row = $productIdIntoCartQuery->fetch_assoc()) {
                         $productId = $row['product_id'];
-                        $selectProductQuery = $this->connection->query("SELECT id, name, thumbnail, price, quantity, brand, discount from products where id = $productId");
+                        if (isset($row['status'])) {
+                            $status = $row['status'];
+                        }
+
+                        $selectProductQuery = $this->connection->query("SELECT id, name, thumbnail, price, quantity, brand_id, discount from products where id = $productId");
                         while ($row = $selectProductQuery->fetch_assoc()) {
+                            $selectBrandQuery = $this->connection->query("SELECT name as brand from product_brands where id = " . $row['brand_id']);
+                            $brand = $selectBrandQuery->fetch_assoc();
+                            $row['brand'] = $brand['brand'];
+                            if (isset($status)) {
+                                $row['status'] = $status;
+                            }
                             array_push($productsArr, $row);
                         }
                     }

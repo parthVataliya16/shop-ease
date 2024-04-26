@@ -27,7 +27,7 @@ class CategoryViseProduct extends Connection
                     }
                 }
 
-                $selectProductQuery = $this->connection->query("SELECT id, name, thumbnail, price, discount, brand, category_id from products where category_id = $categoryId");
+                $selectProductQuery = $this->connection->query("SELECT id, name, thumbnail, price, discount, category_id from products where category_id = $categoryId");
 
                 if ($selectProductQuery->num_rows) {
                     while ($row = $selectProductQuery->fetch_assoc()) {

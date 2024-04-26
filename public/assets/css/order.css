@@ -1,0 +1,16 @@
+.products {
+    margin-left: 15%;
+}
+
+.orderProduct {
+    padding: 0 10%;
+}
+
+.removeProduct, .productQuantity {
+    display: none !important;
+}
+
+.productImage img {
+    width: 200px;
+    height: 300px;
+}

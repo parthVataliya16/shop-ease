@@ -17,7 +17,7 @@ $(document).ready(function(){
             success: function(result) {
                 if (result.response.status == 200) {
                     productListing(result.products);
-                    
+                    filterProduct();
                 } else {
                     document.getElementById("allProducts").innerHTML = result.response.message;
                 }
@@ -45,6 +45,7 @@ $(document).ready(function(){
                         priceAmt.setAttribute("type", "checkbox");
                         priceAmt.setAttribute("name", "price");
                         priceAmt.setAttribute("id", `${price}-${result.price[index + 1]}`);
+                        priceAmt.classList.add("priceCheckbox");
 
                         const priceTitle = document.createElement("label");
                         document.getElementsByClassName("price")[index].appendChild(priceTitle);
@@ -57,6 +58,7 @@ $(document).ready(function(){
 
                     document.getElementsByClassName("brand-title")[0].innerHTML = "Brand";
 
+                    console.log(result);
                     result.brand.forEach((brand, index) => {
                         const brandFilter = document.createElement("div");
                         document.getElementsByClassName("brandFilter")[0].appendChild(brandFilter);
@@ -66,19 +68,112 @@ $(document).ready(function(){
                         document.getElementsByClassName("brand")[index].appendChild(brandCheckbox);
                         brandCheckbox.setAttribute("type", "checkbox");
                         brandCheckbox.setAttribute("name", "brand");
-                        brandCheckbox.setAttribute("id", brand);
+                        brandCheckbox.setAttribute("id", brand.brand_name);
+                        brandCheckbox.classList.add("brandCheckbox");
 
                         const brandTitle = document.createElement("label");
                         document.getElementsByClassName("brand")[index].appendChild(brandTitle);
                         brandTitle.classList.add("ms-2");
                         brandTitle.innerHTML = brand.brand_name;
-                    })
+                    });
+                    filterProduct(category);
                 } else {
                     // document.getElementById("allProducts").innerHTML = result.response.message;
                 }
             }
         });
     }
+
+    function filterProduct(category = '') {
+        $(".priceCheckbox, .brandCheckbox").click(function() {
+            let priceArr = [];
+            let brandArr = [];
+
+            $("input[name='price']:checked").each(function() {
+                priceArr.push($(this).attr('id'));
+            });
+            $("input[name='brand']:checked").each(function() {
+                brandArr.push($(this).attr('id'));
+            })
+            const price = JSON.stringify([priceArr, brandArr]);
+            console.log(price);
+
+            if (category == '') {
+                if (price === '[[],[]]') {
+                    $.ajax({
+                        method: 'GET',
+                        url: '/practice/Project/routes/web.php/v1/getProductsToUser',
+                        success: function(result) {
+                            if (result.response.status == 200) {
+                                $(".noProduct").addClass("empty");
+                                $(".products").removeClass("empty");
+                                productListing(result.products);
+                                
+                            } else {
+                                $(".noProduct").removeClass("empty");
+                                $(".products").addClass("empty");
+                                document.getElementById("allProducts").innerHTML = result.response.message;
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax ({
+                        method: "GET",
+                        url: `/practice/Project/routes/web.php/v1/filterProduct?price=${price}`,
+                        success: function (result) {
+                            console.log(result);
+                            if (result.status == 200) {
+                                $(".noProduct").addClass("empty");
+                                $(".products").removeClass("empty");
+                                productListing(result.products);
+                            } else {
+                                $(".noProduct").removeClass("empty");
+                                $(".products").addClass("empty");
+                            }
+                        }
+                    })
+                }
+            } else  {
+                console.log(category);
+                if (price === '[[],[]]') {
+                    $.ajax({
+                        method: 'GET',
+                        url: `/practice/Project/routes/web.php/v1/productCategoryVise/${category}`,
+                        success: function(result) {     
+                            console.log(result);
+                            if (result.status == 200) {
+                                $(".noProduct").addClass("empty");
+                                $(".products").removeClass("empty");
+                                productListing(result.products);
+                                filterProduct(category);
+                            } else {
+                                $(".noProduct").removeClass("empty");
+                                $(".products").addClass("empty");
+                                // document.getElementById("allProducts").innerHTML = result.response.message;
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax ({
+                        method: "GET",
+                        url: `/practice/Project/routes/web.php/v1/filterProduct?price=${price}&category=${category}`,
+                        success: function (result) {
+                            console.log(result);
+                            if (result.status == 200) {
+                                $(".noProduct").addClass("empty");
+                                $(".products").removeClass("empty");
+                                productListing(result.products);
+                            } else {
+                                $(".noProduct").removeClass("empty");
+                                $(".products").addClass("empty");
+                            }
+                        }
+                    })
+                }
+            }
+        });
+    }
+    
 
     // $.ajax({
     //     method: 'GET',

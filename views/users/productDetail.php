@@ -74,7 +74,7 @@
         </div>
 
         <section class="mt-4 container">
-            <h3>Other products</h3>
+            <h3>Related products</h3>
             <hr>
             <div class="otherProdcuts">
                 <div class="allProducts container-fluid mt-3" id="allProducts">

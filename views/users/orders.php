@@ -8,6 +8,8 @@
         <link rel="stylesheet" href="./../../public/assets/css/navbar.css">
         <link rel="stylesheet" href="./../../public/assets/css/body.css">
         <link rel="stylesheet" href="./../../public/assets/css/sidebar.css">
+        <link rel="stylesheet" href="./../../public/assets/css/bag.css">
+        <link rel="stylesheet" href="./../../public/assets/css/order.css">
         <title>Document</title>
     </head>
     <body>
@@ -18,7 +20,14 @@
         require_once './layout/navbar.php';
         require_once './layout/sidebar.php';
     ?>
-    
+    <div class="products">
+        <div class="orderProduct container mt-4">
+                <div class="productListing d-flex flex-column">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
     <?php
     } else {
         header("location: ./../auth/signin.php");
@@ -32,4 +41,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://kit.fontawesome.com/830d1515a6.js" crossorigin="anonymous"></script>
     <script src="./../../public/assets/js/sidebar.js"></script>
+    <script src="./../../public/assets/js/navbar.js"></script>
+    <script src="./../../public/assets/js/order.js" type="module"></script>
 </html>

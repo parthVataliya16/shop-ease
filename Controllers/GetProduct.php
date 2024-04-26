@@ -14,7 +14,7 @@ class GetProduct extends Connection
             $allProduct = [];
             if ($category == "") {
                 if($id) {
-                    $product = $this->connection->query("SELECT id, name, price, discount, brand, category_id from products where id = $id");
+                    $product = $this->connection->query("SELECT id, name, price, discount, brand_id, category_id from products where id = $id");
                     $productImage = $this->connection->query("SELECT name from product_images where product_id = $id");
     
                     if ($product->num_rows) {
@@ -27,6 +27,9 @@ class GetProduct extends Connection
                         }
                         while ($row = $product->fetch_assoc()) {
                             $row['images'] = $imageArr;
+                            $selectBrandQuery = $this->connection->query("SELECT name as brand from product_brands where id = " . $row['brand_id']);
+                            $brand = $selectBrandQuery->fetch_assoc();
+                            $row['brand'] = $brand['brand'];
                             array_push($allProduct, $row);
                             $_SESSION['productId'] = $row['id'];
                         }

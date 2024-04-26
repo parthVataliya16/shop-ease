@@ -39,7 +39,10 @@
         <div class="productIntoBag container mt-4">
             <div class="row">
 
-                <div class="productListing d-flex flex-column col-lg-8">
+                <div class=" d-flex flex-column col-lg-8">
+                    <div class="productListing">
+
+                    </div>
                     
                 </div>
                 <div class="bill col-lg-4">
@@ -47,8 +50,8 @@
                     require_once './layout/productBill.php';
                     ?>
                     <div class="row">
-                        <a href="address.php">
-                            <button class="order">Continue</button>
+                        <a class="placeButton" href="address.php">
+                            <button class="order btn btn-outline-success">Continue</button>
                         </a>
                     </div>
                 </div>

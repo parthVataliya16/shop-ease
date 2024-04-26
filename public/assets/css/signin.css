@@ -32,6 +32,10 @@ a:hover {
   outline: none;
 }
 
+.toastify {
+  height: 50px;
+}
+
 .logo {
   display: flex;
   justify-content: center;

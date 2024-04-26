@@ -10,6 +10,8 @@ $(document).ready(function() {
         autoplaySpeed: 2000,
         pauseOnFocus: false,
         pauseOnHover: false,
+        fade: true,
+        cssEase: 'linear'
     });
 
     $.ajax({
@@ -24,6 +26,7 @@ $(document).ready(function() {
                 categoryViseProduct("ac", "allAC");
                 $(".allProducts").slick({
                     slidesToShow: 4,
+                    arrows: false,
                     autoplay: true,
                     autoplaySpeed: 3000,
                     pauseOnFocus: false,
@@ -44,6 +47,7 @@ const categoryViseProduct = (category, className) => {
                 productListing(result.products, className);
                 $(`.${className}`).slick({
                     slidesToShow: 4,
+                    arrows: false,
                     autoplay: true,
                     autoplaySpeed: 3000,
                     pauseOnFocus: false,
@@ -62,8 +66,13 @@ const productListing = (products,className) => {
         productData.classList.add("productData");
 
         const numberOfProductDataClass = document.getElementsByClassName("productData").length;
+        const productBorder = document.createElement("div");
+        document.getElementsByClassName("productData")[numberOfProductDataClass - 1].appendChild(productBorder);
+        productBorder.classList.add("productBorder");
+
+
         const product = document.createElement("div");
-        document.getElementsByClassName("productData")[numberOfProductDataClass - 1].appendChild(product);
+        document.getElementsByClassName("productBorder")[numberOfProductDataClass - 1].appendChild(product);
         product.classList.add("product");
         product.setAttribute("id", value['id']);
 

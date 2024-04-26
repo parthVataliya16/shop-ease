@@ -13,9 +13,9 @@ class GetProductsToUser extends Connection
         try {
             $productDetailArr = [];
             if ($productName == null) {
-                $productDetail = $this->connection->query("SELECT id, name, price, discount, brand, thumbnail, category_id from products order by id");
+                $productDetail = $this->connection->query("SELECT product.id, product.name, product.price, product.discount, brand.name as brand, product.thumbnail, product.category_id from products as product inner join product_brands as brand on product.brand_id = brand.id order by id");
             } else {
-                $productDetail = $this->connection->query("SELECT id, name, price, discount, brand, thumbnail from products where name like '%$productName%'");
+                $productDetail = $this->connection->query("SELECT id, name, price, discount, thumbnail from products where name like '%$productName%'");
             }
 
             if ($productDetail->num_rows == 0) {

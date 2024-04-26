@@ -60,7 +60,7 @@ const addToBag = (id) => {
 const productListing = (products) => {
     document.getElementById("allProducts").innerHTML = "";
     products.forEach((value, index) => {
-        if (index % 4 == 0) {
+        if (index % 3 == 0) {
             const row = document.createElement("div");
             document.getElementsByClassName("allProducts")[0].appendChild(row);
             row.classList.add("row", "productRow", "me-0");
@@ -69,11 +69,16 @@ const productListing = (products) => {
         const numberOfProductRowClass = document.getElementsByClassName("productRow").length;
         const productData = document.createElement("div");
         document.getElementsByClassName("productRow")[numberOfProductRowClass - 1].appendChild(productData);
-        productData.classList.add("col-lg-3", "col-md-3", "col-sm-6", "productData");
+        productData.classList.add("col-lg-4", "col-md-4", "col-sm-6", "productData");
 
         const numberOfProductDataClass = document.getElementsByClassName("productData").length;
+        const productBorder = document.createElement("div");
+        document.getElementsByClassName("productData")[numberOfProductDataClass - 1].appendChild(productBorder);
+        productBorder.classList.add("productBorder");
+
+
         const product = document.createElement("div");
-        document.getElementsByClassName("productData")[numberOfProductDataClass - 1].appendChild(product);
+        document.getElementsByClassName("productBorder")[numberOfProductDataClass - 1].appendChild(product);
         product.classList.add("product");
         product.setAttribute("id", value['id']);
 
@@ -105,7 +110,7 @@ const productListing = (products) => {
         const numberOfProductDetailClass = document.getElementsByClassName("productDetail").length;
         const productName = document.createElement("div");
         document.getElementsByClassName("productDetail")[numberOfProductDetailClass - 1].appendChild(productName);
-        productName.classList.add("productName", "mt-3", "ms-4");
+        productName.classList.add("productName", "ms-4");
 
         const numberOfProductNameClass = document.getElementsByClassName("productName").length;
         // const brand = document.createElement("h5");
@@ -113,12 +118,12 @@ const productListing = (products) => {
         // brand.classList.add("brand");
         // brand.innerHTML = value['brand'].charAt(0).toUpperCase() + value['brand'].slice(1);
 
-        const name = document.createElement("h5");
+        const name = document.createElement("h6");
         document.getElementsByClassName("productName")[numberOfProductNameClass - 1].appendChild(name);
         name.classList.add("name");
 
-        if (value['name'].length > 12) {
-            name.innerHTML = value['name'].charAt(0).toUpperCase() + value['name'].slice(1, 12) + "...";
+        if (value['name'].length > 22) {
+            name.innerHTML = value['name'].charAt(0).toUpperCase() + value['name'].slice(1, 22) + "...";
         } else {
             name.innerHTML = value['name'].charAt(0).toUpperCase() + value['name'].slice(1);
         }

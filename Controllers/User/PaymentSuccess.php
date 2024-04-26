@@ -17,7 +17,7 @@ class PaymentSuccess
 
             if ($paymentStatus == 'paid') {
                 $this->status = 200;
-                header('location: ./../Controllers/User/OrderSuccessfull.php');
+                header('location: http://localhost/practice/project/views/users/paymentSuccess.php');
                 exit;
             } else if ($paymentStatus == 'created') {
                 $this->status = 201;

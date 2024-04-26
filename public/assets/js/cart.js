@@ -1,11 +1,11 @@
 import {tostifyBox, addToBag, popupBox} from "./functions.js";
 
 window.onload = () => {
-    const productIntoCart = localStorage.getItem("cart");
     $.ajax({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/productIntoCart`,
+        url: `/practice/Project/routes/web.php/v1/productInto-Cart`,
         success: function(result) {
+            console.log("object");
             console.log(result);
             if (result.status == 200) {
                 productListing(result.products);
@@ -18,7 +18,7 @@ window.onload = () => {
 
 const productListing = (products) => {
     products.forEach((value, index) => {
-        if (index % 4 == 0) {
+        if (index % 3 == 0) {
             const row = document.createElement("div");
             document.getElementsByClassName("productIntoCart")[0].appendChild(row);
             row.classList.add("row", "productRow", "me-0");
@@ -27,11 +27,16 @@ const productListing = (products) => {
         const numberOfProductRowClass = document.getElementsByClassName("productRow").length;
         const productData = document.createElement("div");
         document.getElementsByClassName("productRow")[numberOfProductRowClass - 1].appendChild(productData);
-        productData.classList.add("col-lg-3", "col-md-3", "col-sm-6", "productData");
+        productData.classList.add("col-lg-4", "col-md-4", "col-sm-6", "productData");
 
         const numberOfProductDataClass = document.getElementsByClassName("productData").length;
+        const productBorder = document.createElement("div");
+        document.getElementsByClassName("productData")[numberOfProductDataClass - 1].appendChild(productBorder);
+        productBorder.classList.add("productBorder");
+
+
         const product = document.createElement("div");
-        document.getElementsByClassName("productData")[numberOfProductDataClass - 1].appendChild(product);
+        document.getElementsByClassName("productBorder")[numberOfProductDataClass - 1].appendChild(product);
         product.classList.add("product");
         product.setAttribute("id", value['id']);
 
@@ -85,8 +90,8 @@ const productListing = (products) => {
         document.getElementsByClassName("productName")[numberOfProductNameClass - 1].appendChild(name);
         name.classList.add("name");
 
-        if (value['name'].length > 12) {
-            name.innerHTML = value['name'].charAt(0).toUpperCase() + value['name'].slice(1, 12) + "...";
+        if (value['name'].length > 20) {
+            name.innerHTML = value['name'].charAt(0).toUpperCase() + value['name'].slice(1, 20) + "...";
         } else {
             name.innerHTML = value['name'].charAt(0).toUpperCase() + value['name'].slice(1);
         }

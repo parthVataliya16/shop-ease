@@ -3,7 +3,7 @@ import { popupBox, tostifyBox } from "./functions.js";
 window.onload = () => {
     $.ajax({
         method: 'GET',
-        url: '/practice/Project/routes/web.php/v1/productIntoBag',
+        url: '/practice/Project/routes/web.php/v1/productInto-Bag',
         success: function(result) {
             console.log(result);
             if (result.status == 200) {
@@ -25,11 +25,6 @@ const productListing = (products) => {
         const removeProduct = document.createElement("div");
         document.getElementsByClassName("productDetail")[index].appendChild(removeProduct);
         removeProduct.classList.add("removeProduct", "d-flex", "justify-content-end", "m-2");
-
-        const remove = document.createElement("i");
-        document.getElementsByClassName("removeProduct")[index].appendChild(remove);
-        remove.classList.add("remove", "fa-solid", "fa-xmark");
-        remove.setAttribute("id", product.id);
 
         const productImage = document.createElement("div");
         document.getElementsByClassName("productDetail")[index].appendChild(productImage);
@@ -73,7 +68,7 @@ const productListing = (products) => {
         const discoutPrice = document.createElement("p");
         document.getElementsByClassName("price")[index].appendChild(discoutPrice);
         discoutPrice.classList.add("discountPrice");
-        discoutPrice.innerHTML = `&#8377;${product.price - (product.price * (product.discount / 100))}`;
+        discoutPrice.innerHTML = `&#8377;${Math.round(product.price - (product.price * (product.discount / 100)))}`;
 
         const originalPrice = document.createElement("p");
         document.getElementsByClassName("price")[index].appendChild(originalPrice);
@@ -95,7 +90,6 @@ const productListing = (products) => {
         quantity.classList.add("quantity");
 
         const numberOfQuantityClass = document.getElementsByClassName("quantity").length;
-        
         const reduceQuantity = document.createElement("button");
         document.getElementsByClassName("quantity")[numberOfQuantityClass - 1].appendChild(reduceQuantity);
         reduceQuantity.classList.add("reduceQuantity");
@@ -118,6 +112,12 @@ const productListing = (products) => {
         document.getElementsByClassName("productQuantity")[numberOfProductQuantityClass - 1].appendChild(quantityError);
         quantityError.classList.add("text-danger", "mt-2", "d-flex", "justify-content-center");
         quantityError.setAttribute("id", "quantityError");
+
+        const remove = document.createElement("p");
+        document.getElementsByClassName("productQuantity")[numberOfProductQuantityClass - 1].appendChild(remove);
+        remove.classList.add("remove", 'text-danger');
+        remove.setAttribute("id", product.id);
+        remove.innerHTML = "Remove item";
     });
 
     const removeFromBagButton = document.querySelectorAll(".remove");
@@ -132,7 +132,8 @@ const productListing = (products) => {
     addQuantity.forEach((button) => {
         button.addEventListener("click", () => {
             let current = button.previousSibling.value;
-            const totalQuantity = button.previousSibling.getAttribute("id");
+            const totalQuantity = button.previousSibling.getAttribute("id").split("_")[0];
+            console.log(totalQuantity);
             current++;
             if (current <= totalQuantity) {
                 button.previousSibling.value = current;
@@ -205,6 +206,7 @@ const totalMRP = () => {
     document.getElementsByClassName("amount")[0].innerHTML = `&#8377;${totalMRP + 20}`;
 
     console.log(quantityArr);
+    localStorage.setItem("quantity", JSON.stringify(quantityArr));
 }
 
 const orderButton = document.getElementsByClassName("order")[0];

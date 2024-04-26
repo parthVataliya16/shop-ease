@@ -1,13 +1,17 @@
-
-.productTable {
-    margin-top: 2%;
+.dataTables_wrapper {
+    transition: margin-left 1s;
+    margin-left: 15%;
+    padding: 1px 16px;
+    margin-top: 5%;
 }
 
-th, td {
-    text-align: center;
+.addNewCategory {
+    position: absolute;
+    right: 10px;
+    margin-top: 10px;
 }
 
-.dropdown {
+.action {
     position: relative;
 }
   
@@ -17,7 +21,7 @@ th, td {
     background-color: #fff3f3;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    width: 75px;
+    width: 68%;
 }
 
 .dropdownButtons a {
@@ -26,19 +30,19 @@ th, td {
     display: block;
 }
 
-.dropdown:hover .dropdownButtons {
+.action:hover .dropdownButtons {
     display: flex;
     flex-direction: column;
 }
 
-.dropdown:hover .actionButton {
+.action:hover .actionButton {
     background-color: #00c47c;
     color: #ffffff;
     background-color: #009961;
     padding: 5% 25%;
 }
 
-.dropdown .dropdownButtons .deleteButton, .updateButton {
+.action .dropdownButtons .deleteButton, .updateButton {
     margin: 10% 5%;
 }
 
@@ -48,19 +52,4 @@ th, td {
     border: 2px solid;
     border-radius: 10px;
     padding: 5% 25%;
-}
-
-.dataTables_wrapper{
-    transition: margin-left 1s;
-    margin-left: 15%;
-    padding: 1px 16px;
-/* margin-top: 130px; */
-}
-
-.table {
-width: 100% !important;
-}
-
-.dataTables_scrollHeadInner {
-width: 100% !important;
 }

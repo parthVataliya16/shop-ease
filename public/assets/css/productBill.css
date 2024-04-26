@@ -1,7 +1,9 @@
 .bill {
-    margin-top: 2%;
-    border: 1px solid #00000077;
-    padding: 2%;
+    margin-top: 6%;
+    /* border: 1px solid #00000077; */
+    border-radius: 15px;
+    background-color: #ebe9e977;
+    padding: 5%;
     height: fit-content;
     padding-bottom: 5%;
 }
@@ -16,4 +18,8 @@
 
 .bill .discountMRP, .shippingFee {
     color: #00000077;
+}
+
+.placeButton, .countinue {
+    text-align: center;
 }

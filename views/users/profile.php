@@ -66,5 +66,6 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="https://kit.fontawesome.com/830d1515a6.js" crossorigin="anonymous"></script>
     <script src="./../../public/assets/js/profile.js" type="module"></script>
+    <script src="./../../public/assets/js/navbar.js"></script>
     <script src="./../../public/assets/js/sidebar.js"></script>
 </html>
