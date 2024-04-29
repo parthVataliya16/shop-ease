@@ -5,12 +5,12 @@ $(document).ready(function () {
     success: function (result) {
       // console.log(result);
       if (result.response.status == 200) {
+        $(".loader").addClass("hideLoader");
+        $(".productTable").removeClass("hideLoader");
+        $(".sidebar").removeClass("hideLoader");
+      
         productListing(result.products);
-        new DataTable(".table", {
-          columnDefs: [{ orderable: false, targets: [0, 7] }],
-          order: [[0, "asc"]],
-          scrollX: true,
-        });
+        
         const deleteButtons = document.querySelectorAll(".deleteButton");
         deleteButtons.forEach((button) => {
           button.addEventListener("click", () => {
@@ -19,18 +19,10 @@ $(document).ready(function () {
           });
         });
 
-        const pagginationButton = document.querySelectorAll(".paginate_button");
-        pagginationButton.forEach((button) => {
-          button.addEventListener("click", () => {
-            const deleteButtons = document.querySelectorAll(".deleteButton");
-            deleteButtons.forEach((deletebtn) => {
-                console.log(deletebtn);
-                deletebtn.addEventListener("click", () => {
-                const id = deletebtn.getAttribute("id").slice(4);
-                deleteProductPopup(id);
-              });
-            });
-          });
+        new DataTable(".table", {
+          columnDefs: [{ orderable: false, targets: [0, 7] }],
+          order: [[0, "asc"]],
+          scrollX: true,
         });
       } else {
         document.querySelector(".products").innerHTML = result.response.message;

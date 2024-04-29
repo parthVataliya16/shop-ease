@@ -19,8 +19,9 @@
         if (loginSuccessfully('admin')) {
             require_once './layout/navbar.php';
             require_once './layout/sidebar.php';
+            require_once './layout/loader.php';
         ?>
-            <section class="container-fluid productTable">
+            <section class="container-fluid productTable hideLoader">
                 <table class="table">
                     <thead>
                         <th>Name</th>

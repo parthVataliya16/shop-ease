@@ -125,3 +125,7 @@
     border: none;
     color: #ffffff;
 }
+
+.error {
+    margin-left: 30px;
+}

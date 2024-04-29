@@ -7,7 +7,10 @@ window.onload = () => {
         success: function(result) {
             console.log(result);
             if (result.response.status == 200) {
-                
+                $(".loader").addClass("hideLoader");
+                $(".categoryTable").removeClass("hideLoader");
+                $(".sidebar").removeClass("hideLoader");
+
                 result.categories.forEach((category, index) => {
                     const tableRow = document.createElement("tr");
                     document.getElementsByClassName("categories")[0].appendChild(tableRow);
@@ -55,7 +58,7 @@ window.onload = () => {
                     updateButton.innerHTML = "Update";
                 });
 
-                $(".table").DataTable();
+                
 
                 const updateButton = document.querySelectorAll(".updateButton");
                 updateButton.forEach(button => {
@@ -84,36 +87,6 @@ window.onload = () => {
                     })
                 });
 
-                const pagginationButton = document.querySelectorAll(".paginate_button");
-                pagginationButton.forEach(button => {
-                    button.addEventListener("click", () => {
-                        const deleteButton = document.querySelectorAll(".deleteButton");
-                        deleteButton.forEach(deletebtn => {
-                            deletebtn.addEventListener("click", () => {
-                                const id = deletebtn.getAttribute("id").slice(4);
-                                console.log(id);
-                                deleteCategoryPopup(id);
-                            })
-                        });
-                    });
-
-                    updateButton.forEach(updatebtn => {
-                        updatebtn.addEventListener("click", () => {
-                            const id = updatebtn.getAttribute("id").slice(7);
-                            $.ajax ({
-                                method:"GET",
-                                url: `/practice/Project/routes/web.php/v1/getCategory/${id}`,
-                                success: function(result) {
-                                    if (result.response.status == 200) {
-                                        document.getElementById("catName").value = result.categories[0].name;
-                                    }
-                                }
-                            });
-    
-                        });
-                    })
-                });
-
                 const updateCategory = document.getElementById("updateCategoryName");
                 updateCategory.addEventListener("click", () => {
                     console.log(updateCategory);
@@ -132,6 +105,8 @@ window.onload = () => {
                         }
                     })
                 })
+
+                $(".table").DataTable();
             }
         }
     });

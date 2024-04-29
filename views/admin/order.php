@@ -19,12 +19,14 @@
         if (loginSuccessfully('admin')) {
             require_once './layout/navbar.php';
             require_once './layout/sidebar.php';
+            require_once './layout/loader.php';
         ?>
-            <section class="container-fluid ordertable">
+            <section class="container-fluid ordertable hideLoader">
                 <table class="table">
                     <thead>
-                        <th>User name</th>
-                        <th>Product name</th>
+                        <th>User's name</th>
+                        <th>User's contact</th>
+                        <th>Product's name</th>
                         <th>Quantity</th>
                         <th>Status</th>
                     </thead>

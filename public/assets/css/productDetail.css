@@ -55,18 +55,18 @@
 }
 
 .buyNowButton {
-    background-color: #ffffff;
-    color: #0000ff;
-    border: 2px solid #0000ff93;
+    background-color: #aaaaff;
+    color: #000;
+    /* border: 2px solid #0000ff93; */
 }
 
 .buyNowButton:hover {
-    background-color: #0000ff7e;
+    background-color: #6666f3;
     color: #ffffff;
 }
 
 .buyNowButton:active {
-    background-color: #0000ff7e !important;
+    background-color: #6666f3 !important;
     color: #ffffff !important;
 }
 

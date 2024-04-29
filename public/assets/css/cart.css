@@ -160,18 +160,18 @@
 }
 
 .buttons .addToBag .addToBagButton {
-    background-color: #ffffff;
-    color: #0000ff;
-    border: 2px solid #0000ff7e;
+    background-color: #aaaaff;
+    color: #000;
+    /* border: 2px solid #0000ff7e; */
 }
 
 .buttons .addToBag .addToBagButton:hover {
-    background-color: #0000ff7e;
+    background-color: #6666f3;
     color: #ffffff;
 }
 
 .buttons .addToBag .addToBagButton:active {
-    background-color: #0000ff7e;
+    background-color: #6666f3;
     color: #ffffff;
 }
 

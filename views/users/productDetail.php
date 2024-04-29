@@ -34,7 +34,7 @@
                             <div class="buttons d-flex">
                                 <div class="addToCart">
                                     <button class="addToCartButton btn">
-                                        Add to Cart
+                                        Add to Wishlist
                                     </button>
                                 </div>
                                 <div class="buyNow">

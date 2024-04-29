@@ -4,6 +4,7 @@
 
 .orderProduct {
     padding: 0 10%;
+    margin: 5% 0;
 }
 
 .removeProduct, .productQuantity {
@@ -12,5 +13,27 @@
 
 .productImage img {
     width: 200px;
-    height: 300px;
+    /* height: 300px; */
+}
+
+.productImage {
+    display: flex;
+    align-items: center;
+}
+
+.products .productListing .productDetail {
+    margin: 0;
+    padding: 0;
+}
+
+.products .productListing .productDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5% 0;
+}
+
+.cancelOrder {
+    font-weight: 700;
+    cursor: pointer;
 }

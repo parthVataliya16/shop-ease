@@ -59,11 +59,14 @@ window.onload = () => {
                 const linkEle = document.createElement("a");
                 document.getElementsByClassName("placeOrder")[0].appendChild(linkEle);
                 linkEle.classList.add("submitPlaceOrder");
-                linkEle.setAttribute("href", "");
+                // linkEle.setAttribute("href", "");
                 const button = document.createElement("button");
                 // document.getElementById("placeOrder").removeChild();
                 document.getElementsByClassName("submitPlaceOrder")[0].appendChild(button);
                 button.classList.add("placeOrderButton", 'btn', 'btn-outline-success');
+                button.setAttribute("data-bs-toggle", "modal");
+                button.setAttribute("data-bs-target", "#otpForm");
+                button.setAttribute("id", "sendOTP");
                 button.innerHTML = "Place Order"
             }
         })
@@ -77,7 +80,47 @@ window.onload = () => {
 
     getAddress();
 
-    
+    $("#sendOTP").click(() => {
+        $.ajax ({
+            method: "POST",
+            url: `/practice/Project/routes/web.php/v1/sendOTP`,
+        })
+    });
+
+    $("#confirmOTP").click(() => {
+        const enterOTP = $("#otp").val();
+        console.log(enterOTP);
+        $.ajax ({
+            method: "POST",
+            url: `/practice/Project/routes/web.php/v1/confirmOTP`,
+            data: {
+                enterOTP: enterOTP
+            },
+            success: function(result) {
+                console.log(result);
+                if (result.status == 200) {
+                    $.ajax ({
+                        method: "POST",
+                        url: `/practice/Project/routes/web.php/v1/orderSuccessfull`,
+                        data: {
+                            quantity: localStorage.getItem("quantity")
+                        },
+                        success: function(result) {
+                            if ( result== 200) {
+                                window.location.replace("orders.php");
+                            } else {
+                                window.location.replace("orders.php");  
+                                popupBox("Something went wrong");
+                            }
+                        }
+                    });
+                    // window.location.replace("paymentSuccess.php");
+                } else {
+                    document.getElementsByClassName("error")[0].innerHTML = result.message;
+                }
+            }
+        })
+    })
 }
 
 const getAddress = () => {

@@ -21,6 +21,7 @@
     if (loginSuccessfully('admin')) {
         require_once './layout/navbar.php';
         require_once './layout/sidebar.php';
+        require_once './layout/loader.php';
     ?>
         <div class="container-fluid">
             <button type="button" class="btn addNewCategory btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add New Category</button>
@@ -69,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <section class="container-fluid categoryTable">
+        <section class="container-fluid categoryTable hideLoader">
             <table class="table">
                 <thead>
                     <th>No.</th>

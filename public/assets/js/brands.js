@@ -7,6 +7,10 @@ window.onload = () => {
         success: function(result) {
             console.log(result);
             if (result.status == 200) {
+                $(".loader").addClass("hideLoader");
+                $(".categoryTable").removeClass("hideLoader");
+                $(".sidebar").removeClass("hideLoader");
+
                 result.brands.forEach((brand, index) => {
                     const tableRow = document.createElement("tr");
                     document.getElementsByClassName("categories")[0].appendChild(tableRow);
@@ -54,7 +58,6 @@ window.onload = () => {
                     updateButton.innerHTML = "Update";
                 });
 
-                $(".table").DataTable();
                 const updateButton = document.querySelectorAll(".updateButton");
                 updateButton.forEach(button => {
                     button.addEventListener("click", () => {
@@ -89,42 +92,6 @@ window.onload = () => {
                     })
                 });
 
-                const pagginationButton = document.querySelectorAll(".paginate_button");
-                pagginationButton.forEach(button => {
-                    button.addEventListener("click", () => {
-                        const deleteButton = document.querySelectorAll(".deleteButton");
-                        deleteButton.forEach(deletebtn => {
-                            deletebtn.addEventListener("click", () => {
-                                const id = deletebtn.getAttribute("id").slice(4);
-                                console.log(id);
-                                deleteBrandPopup(id);
-                            })
-                        });
-                    });
-
-                    updateButton.forEach(updatebtn => {
-                        updatebtn.addEventListener("click", () => {
-                            const id = updatebtn.getAttribute("id").slice(7);
-                            $.ajax ({
-                                method:"GET",
-                                url: `/practice/Project/routes/web.php/v1/getBrand/${id}`,
-                                success: function(result) {
-                                    if (result.status == 200) {
-                                        const category = document.querySelectorAll(".productCategory");
-                                        category.forEach(category => {
-                                            if (category.value == result.brand[0].category) {
-                                                category.setAttribute("selected", "");
-                                            }
-                                        })
-                                        document.getElementById("updatedBrand").value = result.brand[0].brand;
-                                    }
-                                }
-                            });
-    
-                        });
-                    })
-                });
-
                 const updateBrand= document.getElementById("updateBrand");
                 updateBrand.addEventListener("click", () => {
                     console.log(updateBrand);
@@ -145,6 +112,8 @@ window.onload = () => {
                         }
                     })
                 })
+                $(".table").DataTable();
+
             }
         }
     });

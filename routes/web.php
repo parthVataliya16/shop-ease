@@ -35,6 +35,9 @@ require_once './../Controllers/User/PlaceOrder.php';
 require_once './../Controllers/User/PaymentSuccess.php';
 require_once './../Controllers/User/OrderSuccessfull.php';
 require_once './../Controllers/User/FilterProduct.php';
+require_once './../Controllers/User/sendOTP.php';
+require_once './../Controllers/User/ConfirmOTP.php';
+require_once './../Controllers/User/CancelOrder.php';
 // require_once './../Controllers/User/GenderViseProduct.php';
 require_once './../Controllers/Category.php';
 require_once './../Controllers/GetProduct.php';
@@ -65,7 +68,7 @@ if ($lengthOfMatchesArr >= 2) {
     $price = require_once "./../config/$categoryName.php";
 }
 
-preg_match("/^\/v1\/addToCart\/(\d+)$|^\/v1\/removeProductFromCart\/(\d+)$|^\/v1\/getProduct\/(\d+)$|^\/v1\/addToBag\/(\d+)$|^\/v1\/removeProductFromBag\/(\d+)$|^\/v1\/address\/(\d+)$|^\/v1\/updateAddress\/(\d+)$|^\/v1\/categoricalProduct\/(\d+)$|^\/v1\/getProductBrand\/(\d+)$|^\/v1\/deleteCategory\/(\d+)$|^\/v1\/getCategory\/(\d+)$|^\/v1\/updateCategory\/(\d+)$|^\/v1\/deleteBrand\/(\d+)$|^\/v1\/getBrand\/(\d+)$|\/v1\/updateBrand\/(\d+)$/", $endpoint, $matches);
+preg_match("/^\/v1\/addToCart\/(\d+)$|^\/v1\/removeProductFromCart\/(\d+)$|^\/v1\/getProduct\/(\d+)$|^\/v1\/addToBag\/(\d+)$|^\/v1\/removeProductFromBag\/(\d+)$|^\/v1\/address\/(\d+)$|^\/v1\/updateAddress\/(\d+)$|^\/v1\/categoricalProduct\/(\d+)$|^\/v1\/getProductBrand\/(\d+)$|^\/v1\/deleteCategory\/(\d+)$|^\/v1\/getCategory\/(\d+)$|^\/v1\/updateCategory\/(\d+)$|^\/v1\/deleteBrand\/(\d+)$|^\/v1\/getBrand\/(\d+)$|^\/v1\/updateBrand\/(\d+)$|^\/v1\/cancelOrder\/(\d+)$/", $endpoint, $matches);
 $id = 0;
 $lengthOfMatchesArr = count($matches);
 
@@ -140,6 +143,13 @@ switch ($serverRequest) {
                 $updateBrand = new ProductBrand();
                 echo $updateBrand->updateBrand($id);
                 break;
+            case "/v1/sendOTP":
+                $sendOTP = new SendOTP();
+                echo $sendOTP->sendOTP();
+                break;
+            case "/v1/confirmOTP":
+                $confirmOTP = new ConfirmOTP();
+                echo $confirmOTP->confirmOTP();
         }
         break;
         // if ($endpoint == '/addProduct') {
@@ -275,6 +285,9 @@ switch ($serverRequest) {
                 $deleteBrand = new ProductBrand();
                 echo $deleteBrand->deleteBrand($id);
                 break;
+            case "/v1/cancelOrder/{$id}":
+                $cancelOrder = new CancelOrder();
+                echo $cancelOrder->cancelOrder($id);
         }
         break;
 

@@ -5,6 +5,10 @@ window.onload = () => {
         success: function(result) {
             console.log(result);
             if (result.status == 200) {
+                $(".loader").addClass("hideLoader");
+                $(".ordertable").removeClass("hideLoader");
+                $(".sidebar").removeClass("hideLoader");
+
                 result.orders.forEach((order, index) => {
                     const tableRow = document.createElement("tr");
                     document.getElementsByClassName("orders")[0].appendChild(tableRow);
@@ -13,6 +17,10 @@ window.onload = () => {
                     const userName = document.createElement("td");
                     document.getElementsByClassName("orderData")[index].appendChild(userName);
                     userName.innerHTML = order.user_name;
+
+                    const phoneNumber = document.createElement("td");
+                    document.getElementsByClassName("orderData")[index].appendChild(phoneNumber);
+                    phoneNumber.innerHTML = order.phone_number;
 
                     const productName = document.createElement("td");
                     document.getElementsByClassName("orderData")[index].appendChild(productName);
@@ -51,9 +59,6 @@ window.onload = () => {
                     const expectedDelivery = document.createElement("input");
                     document.getElementsByClassName("status")[index].appendChild(expectedDelivery);
                     expectedDelivery.setAttribute("placeholder", "Expected delivery days");
-
-                    
-
                 });
 
                 $(".table").DataTable();

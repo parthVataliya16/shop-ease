@@ -12,7 +12,7 @@ class AllOrders extends Connection
     {
         try {
             $allOrders = [];
-            $selectOrdersQuery = $this->connection->query("SELECT users.first_name, users.last_name, products.name as product_name, orders.quantity, orders.status 
+            $selectOrdersQuery = $this->connection->query("SELECT users.first_name, users.last_name, users.phone_number, products.name as product_name, orders.quantity, orders.status 
             FROM orders
             INNER JOIN users ON users.id = orders.user_id 
             INNER JOIN products ON orders.product_id = products.id;

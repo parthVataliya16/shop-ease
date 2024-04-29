@@ -1,5 +1,3 @@
-import { popupBox } from "./functions.js";
-
 window.onload = () => {
     $.ajax ({
         method: "POST",
@@ -12,7 +10,6 @@ window.onload = () => {
                 window.location.replace("orders.php");
             } else {
                 window.location.replace("orders.php");  
-                popupBox("Something went wrong");
             }
         }
     });

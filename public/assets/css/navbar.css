@@ -13,6 +13,13 @@ i {
     
 }
 
+.search input {
+    border-radius: 5px;
+    padding: 3%;
+    border: 1px solid;
+    /* margin-right: 10px; */
+}
+
 .navbar-toggler-icon {
     font-size: medium;
 }
@@ -29,6 +36,18 @@ i {
 
 .nav-link {
     font-size: large;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.nav-link p {
+    margin: 0;
+    font-size: small;
+}
+
+.nav-link i {
+    font-size: medium;
 }
 
 .dropdownMenu {
@@ -39,6 +58,9 @@ i {
     display: none;
     height: 150px;
     overflow: auto;
+    -webkit-box-shadow: -0.5px 8.5px 10.5px 6px #c7c7c7;
+    -moz-box-shadow: -0.5px 8.5px 10.5px 6px #c7c7c7;
+    box-shadow: -0.5px 8.5px 10.5px 6px #c7c7c7;
 }
 
 .dropdownMenu a {
@@ -51,6 +73,7 @@ i {
 
 .dropdownMenu a:hover {
     background-color: #e3e0e0;
+    font-weight: 800;
 }
 
 .productCategoryDropdown {
@@ -93,29 +116,50 @@ i {
     background-color: #cb6b6b;
 }
 
-.profile {
+.profileDropdown {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.profile .nav-link {
+.profileDropdown .nav-link {
     margin: 0;
     z-index: 1;
+}
+
+.profile-dropdown a {
+    border-bottom: 1px solid ;
+    padding: 6%;
+    display: block;
+    text-decoration: none;
+    color: #000000;
+}
+
+.profile-dropdown p {
+    margin-bottom: 10px;
 }
 
 .profile-dropdown {
     position: absolute;
     background-color: #ffffff;
-    width: 5%;
-    padding-top: 8%;
+    width: 7%;
+    margin-right: 25px;
+    margin-top: 8%;
     text-align: center;
     display: none;
     overflow: auto;
+    -webkit-box-shadow: 0.5px 9px 10px 7px #dddddd;
+    -moz-box-shadow: 0.5px 9px 10px 7px #dddddd;
+    box-shadow: 0.5px 9px 10px 7px #dddddd;
 }
-.profile:hover .profile-dropdown {
+.profileDropdown:hover .profile-dropdown {
     display: block;
+}
+
+.profile-dropdown a:hover {
+    background-color: #dddddd;
+    font-weight: 800;
 }
 
 @media (min-width : 426px) {

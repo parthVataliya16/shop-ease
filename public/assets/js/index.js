@@ -1,6 +1,15 @@
-import {addToCart} from './functions.js'
+import { addToCart } from "./functions.js";
 
 $(document).ready(function() {
+    setTimeout(() => {
+        const addToCartButtons = document.querySelectorAll(".addToCartButton");
+        addToCartButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const id = button.getAttribute("id");
+                addToCart(id);
+            })
+        });
+    }, 2000)
     $(".banners").slick({
         slidesToShow: 1,
         prevArrow:false,
@@ -27,7 +36,7 @@ $(document).ready(function() {
                 $(".allProducts").slick({
                     slidesToShow: 4,
                     arrows: false,
-                    autoplay: true,
+                    // autoplay: true,
                     autoplaySpeed: 3000,
                     pauseOnFocus: false,
                     pauseOnHover: false,
@@ -48,11 +57,18 @@ const categoryViseProduct = (category, className) => {
                 $(`.${className}`).slick({
                     slidesToShow: 4,
                     arrows: false,
-                    autoplay: true,
-                    autoplaySpeed: 3000,
-                    pauseOnFocus: false,
-                    pauseOnHover: false,
+                    // autoplay: true,
+                    // autoplaySpeed: 3000,
+                    // pauseOnFocus: false,
+                    // pauseOnHover: false,
                 });
+                // const addToCartButtons = document.querySelectorAll(".addToCartButton");
+                // addToCartButtons.forEach((button) => {
+                //     button.addEventListener("click", () => {
+                //         const id = button.getAttribute("id");
+                //         addToCart(id);
+                //     })
+                // });
             }
         }
     })
@@ -160,15 +176,8 @@ const productListing = (products,className) => {
         const addTocartButton = document.createElement("button");
         document.getElementsByClassName("addToCart")[numberOfAddToCartClass - 1].appendChild(addTocartButton);
         addTocartButton.classList.add("addToCartButton", "btn");
-        addTocartButton.innerHTML = "Add To Cart";
+        addTocartButton.innerHTML = "Add To Wishlist";
         addTocartButton.setAttribute("id", `${value['id']}`);
     });
-
-    const addToCartButtons = document.querySelectorAll(".addToCartButton");
-    addToCartButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            const id = button.getAttribute("id");
-            addToCart(id);
-        })
-    });
+    
 }

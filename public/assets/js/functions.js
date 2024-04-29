@@ -30,11 +30,11 @@ const addToCart = (id) => {
         success: function(result) {
             console.log(result);
             if (result.status == 201) {
-                tostifyBox("Product added to the cart.", "linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)");
+                tostifyBox("Product added to the cart.", "linear-gradient(to right, #ddd6f3 , #faaca8)", "#333");
             } else if (result.status == 400) {
-                tostifyBox("Product is already added into the cart!", "linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)");
+                tostifyBox("Product is already added into the cart!", "linear-gradient(0deg, #d2f07e 0%, #FFFF00 100%)", "#333");
             } else {
-                tostifyBox("Something went wrong!", "#f37373");
+                tostifyBox("Something went wrong!", "linear-gradient(0deg, #d2f07e 0%, #FFFF00 100%)", "#333");
             }
         }
     })
@@ -47,11 +47,11 @@ const addToBag = (id) => {
         success: function(result) {
             console.log(result);
             if (result.status == 201) {
-                tostifyBox("Product added to the bag.", "linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)");
+                tostifyBox("Product added to the bag.", "linear-gradient(to right, #ddd6f3 , #faaca8)", "#333");
             } else if (result.status == 400) {
-                tostifyBox("Product is already added into the bag!", "linear-gradient(#ff4040, #f9a98a)");
+                tostifyBox("Product is already added into the bag!", "linear-gradient(0deg, #d2f07e 0%, #FFFF00 100%)", "#333");
             } else {
-                tostifyBox("Something went wrong!", "linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)");
+                tostifyBox("Something went wrong!", "linear-gradient(0deg, #d2f07e 0%, #FFFF00 100%)", "#333");
             }
         }
     })
@@ -166,7 +166,7 @@ const productListing = (products) => {
         const addTocartButton = document.createElement("button");
         document.getElementsByClassName("addToCart")[numberOfAddToCartClass - 1].appendChild(addTocartButton);
         addTocartButton.classList.add("addToCartButton", "btn");
-        addTocartButton.innerHTML = "Add To Cart";
+        addTocartButton.innerHTML = "Add To Wishlist";
         addTocartButton.setAttribute("id", `${value['id']}`);
     });
 

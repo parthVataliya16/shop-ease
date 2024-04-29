@@ -35,7 +35,14 @@
     cursor: pointer;
 }
 
+.products .productListing .productImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .products .productListing .productImage img {
+    width: 150px;
     max-width: 200px;
     padding: 10%;
 }
@@ -52,6 +59,7 @@
     margin: 5%;
     padding: 2%;
     border-bottom: 1px solid #757575;
+    border-top: 1px solid #757575;
 }
 
 .products .productListing .productDetails {

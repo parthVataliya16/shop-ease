@@ -1,5 +1,7 @@
 // import { productListingInBagAndOrder } from "./functions.js";
 
+import { popupBox, tostifyBox } from "./functions.js";
+
 window.onload = () => {
     $.ajax({
         method: 'GET',
@@ -8,6 +10,12 @@ window.onload = () => {
             console.log(result);
             if (result.status == 200) {
                 productListing(result.products);
+
+                $(document).on("click", ".cancelOrder", (event) => {
+                    const id = $(event.currentTarget).attr("id");
+                    popupBox("Are you sure!", "You want to cancel this order?", "question", removeOrder, id);
+                });
+                
             } else {
                 $(".emptyBag").removeClass("empty");
                 $(".products").addClass("empty");
@@ -16,7 +24,23 @@ window.onload = () => {
     })
 }
 
+const removeOrder = (id) => {
+    console.log("object");
+    $.ajax ({
+        method: "DELETE",
+        url: `/practice/Project/routes/web.php/v1/cancelOrder/${id}`,
+        success: function (result) {
+            console.log(result);
+            if (result == 200) {
+                window.onload();
+                tostifyBox("Product move to bag");
+            }
+        }
+    })
+}
+
 const productListing = (products) => {
+    document.getElementsByClassName("productListing")[0].innerHTML = "";
     products.forEach((product, index) => {
         const productDetail = document.createElement("div");
         document.getElementsByClassName("productListing")[0].appendChild(productDetail);
@@ -93,5 +117,13 @@ const productListing = (products) => {
         document.getElementsByClassName("productPlaceStatus")[index].appendChild(productStatus);
         productStatus.classList.add("productStatus");
         productStatus.innerHTML = `Status: ${product.status}`;
+
+        if (product.status != 'delivered') {
+            const cancelOrder = document.createElement("p");
+            document.getElementsByClassName("productPlaceStatus")[index].appendChild(cancelOrder);
+            cancelOrder.classList.add("cancelOrder", "text-danger");
+            cancelOrder.setAttribute("id", product.order_id);
+            cancelOrder.innerHTML = "Cancel order";
+        }
     });
 }
