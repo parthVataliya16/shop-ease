@@ -99,6 +99,8 @@ window.onload = () => {
             success: function(result) {
                 console.log(result);
                 if (result.status == 200) {
+                    $(".loader").removeClass("hideLoader");
+                    $("#otpForm").addClass("hideLoader");
                     $.ajax ({
                         method: "POST",
                         url: `/practice/Project/routes/web.php/v1/orderSuccessfull`,

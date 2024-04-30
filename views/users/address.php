@@ -21,16 +21,7 @@
 
     if (loginSuccessfully()) {
         require_once './layout/navbar.php';
-        // require_once './../../vendor/autoload.php';
-
-        // $dotenv = Dotenv::createImmutable('./../../');
-        // $dotenv->load();
-        // $database = require_once('./../../config/database.php');
-        // $payment = require_once('./../../config/payment.php');
-        // require_once './../../services/paymentService.php';
-
-        // $orderId = new PaymentGateway();
-        // $orderId->payment()
+        require_once './layout/loader-1.php';
     ?>
         <div class="userAddresses">
             <div class="address container mt-4">
@@ -180,7 +171,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="https://kit.fontawesome.com/830d1515a6.js" crossorigin="anonymous"></script>
-<script src="./../../public/assets/js/navbar.js"></script>
+<script src="./../../public/assets/js/navbar.js" type="module"></script>
 <script src="./../../public/assets/js/address.js" type="module"></script>
 
 </html>

@@ -63,7 +63,7 @@ class Products extends Connection
         } catch (Exception $error) {
             $this->status = $error->getCode();
             $this->message = $error->getMessage();
-            error("ProductIntoCart.php", $error->getCode(), $error->getMessage(), $error->getLine());
+            error("Products.php", $error->getCode(), $error->getMessage(), $error->getLine());
         } finally {
             $response = [
                 'status' => $this->status,
@@ -71,6 +71,39 @@ class Products extends Connection
                 'products' => $productsArr
             ];
             header("Content-type: application/json");
+            return json_encode($response);
+        }
+    }
+
+    public function noOfProductIn($tableName)
+    {
+        try {
+
+            $numberOfProduct = 0;
+            $user = $_SESSION['user'];
+            $selectUserIdQuery = $this->connection->query("SELECT id from users where email_id = '$user' || user_name = '$user'");
+            if ($selectUserIdQuery->num_rows) {
+                $row = $selectUserIdQuery->fetch_assoc();
+                $id = $row['id'];
+                
+                $selectNoOfProductQuery = $this->connection->query("SELECT count(id) as number_of_product from " . $tableName . " where user_id = $id");
+                
+                if ($selectNoOfProductQuery->num_rows) {
+                    $row = $selectNoOfProductQuery->fetch_assoc();
+                    $numberOfProduct = $row['number_of_product'];
+                    $this->status = 200;
+                } else {
+                    $this->status = 400;
+                }
+            }
+        } catch (Exception $error) {
+            error("Products.php", $error->getCode(), $error->getMessage(), $error->getLine());
+        } finally {
+            $response = [
+                'status' => $this->status,
+                'numberOfProduct' => $numberOfProduct
+            ];
+            header("content-type: application/json");
             return json_encode($response);
         }
     }

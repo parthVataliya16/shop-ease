@@ -42,7 +42,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://kit.fontawesome.com/830d1515a6.js" crossorigin="anonymous"></script>
+    <script src="./../../public/assets/js/navbar.js" type="module"></script>
     <script src="./../../public/assets/js/sidebar.js"></script>
-    <script src="./../../public/assets/js/navbar.js"></script>
     <script src="./../../public/assets/js/order.js" type="module"></script>
 </html>

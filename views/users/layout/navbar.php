@@ -17,10 +17,12 @@
                 <a class="nav-link me-3" aria-current="page" href="cart.php">
                     <i class="fa-regular fa-heart m-2"></i>
                     <p>Wishlist</p>
+                    <p class="noOfProductInCart">0</p>
                 </a>
                 <a class="nav-link" aria-current="page" href="bag.php">
                     <i class="fa-solid fa-bag-shopping m-2" ></i>
                     <p>Bag</p>
+                    <p class="noOfProductInBag">0</p>
                 </a>
                 <!-- <button class="btn ms-2"><a class="text-decoration-none text-light" href="./../../logOut.php">Log out</a></button> -->
                 <div class="profileDropdown">

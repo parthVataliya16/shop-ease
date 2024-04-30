@@ -116,6 +116,40 @@ i {
     background-color: #cb6b6b;
 }
 
+.cart a {
+    position: relative;
+}
+
+.noOfProductInCart {
+    position: absolute;
+    right: 0;
+    background-color: #3299d5;
+    border-radius: 50%;
+    padding: 5%;
+    height: 20px;
+    width: 20px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.noOfProductInBag {
+    position: absolute;
+    right: 0;
+    left: 15px;
+    background-color: #b0fc38;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 5%;
+    height: 20px;
+    width: 20px;
+    color: #fff
+}
+
 .profileDropdown {
     display: flex;
     justify-content: center;

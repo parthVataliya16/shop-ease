@@ -10,6 +10,9 @@ require_once './../Controllers/Connection.php';
 
 require_once './../Controllers/Auth/Login.php';
 require_once './../Controllers/Auth/Register.php';
+require_once './../Controllers/Auth/ForgotPassword.php';
+require_once './../Controllers/Auth/LinkExpire.php';
+require_once './../Controllers/Auth/ResetPassword.php';
 
 require_once './../Controllers/Admin/AddProduct.php';
 require_once './../Controllers/Admin/DeleteProduct.php';
@@ -150,6 +153,16 @@ switch ($serverRequest) {
             case "/v1/confirmOTP":
                 $confirmOTP = new ConfirmOTP();
                 echo $confirmOTP->confirmOTP();
+                break;
+            case "/v1/forgotPassword":
+                echo "1";
+                $forgotPassword = new ForgotPassword();
+                echo $forgotPassword->forgotPassword();
+                break;
+            case '/v1/resetPassword':
+                $resetPassword = new ResetPassword();
+                echo $resetPassword->resetPassword($_GET['token']);
+                break;
         }
         break;
         // if ($endpoint == '/addProduct') {
@@ -251,6 +264,19 @@ switch ($serverRequest) {
                     echo $filterProduct->filterProduct($_GET['price']);
                 }
                 break;
+            case "/v1/noOfProductInCart":
+                $noOfProductInCart = new Products();
+                echo $noOfProductInCart->noOfProductIn('carts');
+                break;
+            case "/v1/noOfProductInBag":
+                $noOfProductInCart = new Products();
+                echo $noOfProductInCart->noOfProductIn('bags');
+                break;
+            case '/v1/linkExpire' :
+                $linkExpire = new LinkExpire();
+                echo $linkExpire->linkExpire($_GET['token']);
+                break;
+            
         }
         break;
 

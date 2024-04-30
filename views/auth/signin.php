@@ -39,15 +39,17 @@
                         <div class="form-wrapper">
                             <input type="password" placeholder="Password" class="form-control" name="password" id="password">
                         </div>
-                        <span class="text-danger mt-2" id="error"></span>
+                        <div class="form-wrapper forgotPassword mt-2">
+                            <p><a href="forgotPassword.php">Forgot password?</a></p>
+                        </div>
+                        <div class="form-wrapper newUser mt-2">
+                            <p>Don't have an account? <a href="signup.php">Sign Up</a></p>    
+                        </div>
                         <div class="form-wrapper">
                             <div class="btn">
                                 <a href="<?php 
                                     echo $loginWithgoogle->createAuthUrl(); ?>"><img class = "google"src="./../../public/assets/images/google.png" alt="Google Logo"> Sign In with Google</a>
                             </div>
-                        </div>
-                        <div class="form-wrapper">
-                            <span><a href="signup.php">Create an account?</a></span>
                         </div>
                         <button id="submit">Sign in</button>
                     </form>

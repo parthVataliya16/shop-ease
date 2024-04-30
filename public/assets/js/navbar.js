@@ -1,3 +1,6 @@
+import { numberOfProductInBag, numberOfProductInCart } from "./functions.js";
+
+
 $(document).ready(function() {
     $.ajax ({
         method: 'GET',
@@ -14,4 +17,7 @@ $(document).ready(function() {
             }
         }
     });
+
+    numberOfProductInCart();
+    numberOfProductInBag();
 })

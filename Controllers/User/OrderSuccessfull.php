@@ -45,17 +45,17 @@ class OrderSuccessfull extends Connection
                         $adminEmail = $selectAdminEmailQuery->fetch_assoc();
                         $adminEmail = $adminEmail['email_id'];
 
-                        // $selectProductNameQuery = $this->connection->query("SELECT name from products where id = $product[0]");
-                        // $productName = $selectProductNameQuery->fetch_assoc();
-                        // $productName = $productName['name'];
+                        $selectProductNameQuery = $this->connection->query("SELECT name from products where id = $product[0]");
+                        $productName = $selectProductNameQuery->fetch_assoc();
+                        $productName = $productName['name'];
                         
-                        // $sendMailFrom = $email;
-                        // $sendMailTo = $adminEmail;
-                        // $subject = 'Place order';
-                        // $body = "<a href='http://localhost/practice/project/views/auth/signin.php'> Signin </a>";
-                        // $body .= "<h5>$user order $productName</h5>";
+                        $sendMailFrom = $email;
+                        $sendMailTo = $adminEmail;
+                        $subject = 'Place order';
+                        $body = "<a href='http://localhost/practice/project/views/auth/signin.php'> Signin </a>";
+                        $body .= "<h5>$user order $productName</h5>";
                         
-                        // $this->sendMail->sendMail($sendMailFrom, $sendMailTo, $subject, $body);
+                        $this->sendMail->sendMail($sendMailFrom, $sendMailTo, $subject, $body);
                         
                         // $selectOrderQuery = $this->connection->query("SELECT order_alias.id, product.name, product.price, product.discount 
                         // FROM orders AS order_alias 

@@ -31,6 +31,7 @@ const addToCart = (id) => {
             console.log(result);
             if (result.status == 201) {
                 tostifyBox("Product added to the cart.", "linear-gradient(to right, #ddd6f3 , #faaca8)", "#333");
+                numberOfProductInCart();
             } else if (result.status == 400) {
                 tostifyBox("Product is already added into the cart!", "linear-gradient(0deg, #d2f07e 0%, #FFFF00 100%)", "#333");
             } else {
@@ -48,11 +49,34 @@ const addToBag = (id) => {
             console.log(result);
             if (result.status == 201) {
                 tostifyBox("Product added to the bag.", "linear-gradient(to right, #ddd6f3 , #faaca8)", "#333");
+                numberOfProductInBag();
             } else if (result.status == 400) {
                 tostifyBox("Product is already added into the bag!", "linear-gradient(0deg, #d2f07e 0%, #FFFF00 100%)", "#333");
             } else {
                 tostifyBox("Something went wrong!", "linear-gradient(0deg, #d2f07e 0%, #FFFF00 100%)", "#333");
             }
+        }
+    })
+}
+
+const numberOfProductInCart = () => {
+    $.ajax ({
+        method: 'GET',
+        url: `/practice/Project/routes/web.php/v1/noOfProductInCart`,
+        success: function (result) {
+            console.log(result);
+            document.getElementsByClassName("noOfProductInCart")[0].innerHTML = result.numberOfProduct
+        }
+    })
+}
+
+const numberOfProductInBag = () => {
+    $.ajax ({
+        method: 'GET',
+        url: `/practice/Project/routes/web.php/v1/noOfProductInBag`,
+        success: function (result) {
+            console.log(result);
+            document.getElementsByClassName("noOfProductInBag")[0].innerHTML = result.numberOfProduct
         }
     })
 }
@@ -179,4 +203,4 @@ const productListing = (products) => {
     });
 }
 
-export {tostifyBox, addToCart, addToBag, productListing, popupBox};
+export {tostifyBox, addToCart, addToBag, productListing, popupBox, numberOfProductInCart, numberOfProductInBag};
