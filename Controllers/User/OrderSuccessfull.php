@@ -93,7 +93,7 @@ class OrderSuccessfull extends Connection
                             </div>
                             <p>Thank you for your attention.</p>
                             <p>If you want to view the order details, please sign in to the admin dashboard:</p>
-                            <a href='http://localhost/practice/project/views/auth/signin.php' class='btn'>Sign In to Admin Dashboard</a>
+                            <a href='http://localhost/project/views/auth/signin.php' class='btn'>Sign In to Admin Dashboard</a>
                             <p>Best regards,<br>Shop ease Team</p>
                         </div>";
                         
