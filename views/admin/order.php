@@ -29,6 +29,7 @@
                         <th>Product's name</th>
                         <th>Quantity</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </thead>
                     <tbody class="orders">
                         
@@ -38,6 +39,91 @@
                     </div>
                 </table>
             </section>
+            <div class="modal fade" id="updateOrderStatus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Update Order Status</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="status-name" class="col-form-label">Select Status:</label>
+                                    <select name="orderStatus" id="orderStatus">
+                                        <option value="canceled">Canceled</option>
+                                        <option value="waiting">Waiting</option>
+                                        <option value="accepted" selected>Accepted</option>
+                                        <option value="delivered">Delivered</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 deliveryDay">
+                                    <label for="delivery-name" class="col-form-label">Delivery days:</label>
+                                    <select name="deliveryDay" id="deliveryDay">
+                                        <option value="nextDay">With In a Day</option>
+                                        <option value="withInThree">With In 3 Days</option>
+                                        <option value="withInFive">With In 5 Days</option>
+                                        <option value="withInWeek">With In a Week</option>
+                                        <option value="withInFifteen">With In 15 Days</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="updateOrdere">Update Status</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="viewOrder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Order Details</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                <table>
+                                    <hr>
+                                    <tr>
+                                        <td>Product Name</td>
+                                        <td id="productName"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>User Name</td>
+                                        <td id="userName"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>User Contact Number</td>
+                                        <td id="userContact"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quantity</td>
+                                        <td id="quantity"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Payment Type</td>
+                                        <td id="paymentType"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Payment Status</td>
+                                        <td id="paymentStatus"></td>
+                                    </tr>
+                                </table>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <?php
         } else {
             header("location: ./../auth/signin.php");

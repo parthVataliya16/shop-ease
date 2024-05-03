@@ -1,6 +1,7 @@
 const tostifyBox = (msg, bgColor, color = "#FFFFFF") => {
     Toastify({
         text: msg,
+        duration: 2000,
         close: true,
         stopOnFocus: true,
         style: {
@@ -26,7 +27,7 @@ const popupBox = (title, text, icon, isConfirmedFunction, id) => {
 const addToCart = (id) => {
     $.ajax({
         method: 'POST',
-        url: `/practice/Project/routes/web.php/v1/addToCart/${id}`,
+        url: `/Project/routes/web.php/v1/addToCart/${id}`,
         success: function(result) {
             console.log(result);
             if (result.status == 201) {
@@ -44,7 +45,7 @@ const addToCart = (id) => {
 const addToBag = (id) => {
     $.ajax({
         method: 'POST',
-        url: `/practice/Project/routes/web.php/v1/addToBag/${id}`,
+        url: `/Project/routes/web.php/v1/addToBag/${id}`,
         success: function(result) {
             console.log(result);
             if (result.status == 201) {
@@ -62,7 +63,7 @@ const addToBag = (id) => {
 const numberOfProductInCart = () => {
     $.ajax ({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/noOfProductInCart`,
+        url: `/Project/routes/web.php/v1/noOfProductInCart`,
         success: function (result) {
             console.log(result);
             document.getElementsByClassName("noOfProductInCart")[0].innerHTML = result.numberOfProduct
@@ -73,7 +74,7 @@ const numberOfProductInCart = () => {
 const numberOfProductInBag = () => {
     $.ajax ({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/noOfProductInBag`,
+        url: `/Project/routes/web.php/v1/noOfProductInBag`,
         success: function (result) {
             console.log(result);
             document.getElementsByClassName("noOfProductInBag")[0].innerHTML = result.numberOfProduct

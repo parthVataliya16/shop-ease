@@ -13,7 +13,7 @@ $(document).ready(function(){
     if (category == null) {
         $.ajax({
             method: 'GET',
-            url: '/practice/Project/routes/web.php/v1/getProductsToUser',
+            url: '/Project/routes/web.php/v1/getProductsToUser',
             success: function(result) {
                 if (result.response.status == 200) {
                     productListing(result.products);
@@ -26,7 +26,7 @@ $(document).ready(function(){
     } else {
         $.ajax({
             method: 'GET',
-            url: `/practice/Project/routes/web.php/v1/productCategoryVise/${category}`,
+            url: `/Project/routes/web.php/v1/productCategoryVise/${category}`,
             success: function(result) {     
                 console.log(result);
                 if (result.status == 200) {
@@ -102,7 +102,7 @@ $(document).ready(function(){
                 if (price === '[[],[]]') {
                     $.ajax({
                         method: 'GET',
-                        url: '/practice/Project/routes/web.php/v1/getProductsToUser',
+                        url: '/Project/routes/web.php/v1/getProductsToUser',
                         success: function(result) {
                             if (result.response.status == 200) {
                                 $(".noProduct").addClass("empty");
@@ -119,7 +119,7 @@ $(document).ready(function(){
                 } else {
                     $.ajax ({
                         method: "GET",
-                        url: `/practice/Project/routes/web.php/v1/filterProduct?price=${price}`,
+                        url: `/Project/routes/web.php/v1/filterProduct?price=${price}`,
                         success: function (result) {
                             console.log(result);
                             if (result.status == 200) {
@@ -138,7 +138,7 @@ $(document).ready(function(){
                 if (price === '[[],[]]') {
                     $.ajax({
                         method: 'GET',
-                        url: `/practice/Project/routes/web.php/v1/productCategoryVise/${category}`,
+                        url: `/Project/routes/web.php/v1/productCategoryVise/${category}`,
                         success: function(result) {     
                             console.log(result);
                             if (result.status == 200) {
@@ -156,7 +156,7 @@ $(document).ready(function(){
                 } else {
                     $.ajax ({
                         method: "GET",
-                        url: `/practice/Project/routes/web.php/v1/filterProduct?price=${price}&category=${category}`,
+                        url: `/Project/routes/web.php/v1/filterProduct?price=${price}&category=${category}`,
                         success: function (result) {
                             console.log(result);
                             if (result.status == 200) {
@@ -177,7 +177,7 @@ $(document).ready(function(){
 
     // $.ajax({
     //     method: 'GET',
-    //     url: `/practice/Project/routes/web.php/v1/getCategory`,
+    //     url: `/Project/routes/web.php/v1/getCategory`,
     //     success: function(result) {
     //         if (result.response.status == 200) {
     //             result.categories.forEach(category => {
@@ -240,7 +240,7 @@ $(document).ready(function(){
         const searchValue = document.getElementById("searchProduct").value;
         $.ajax({
             method: 'GET',
-            url: `/practice/Project/routes/web.php/v1/getProductsToUser?productName=${searchValue}`,
+            url: `/Project/routes/web.php/v1/getProductsToUser?productName=${searchValue}`,
             success: function (result) {
                 if (result.response.status == 200) {
                     productListing(result.products);

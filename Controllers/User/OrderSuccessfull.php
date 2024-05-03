@@ -14,6 +14,9 @@ class OrderSuccessfull extends Connection
     {
         try {
             $productQuantity = $_POST['quantity'];
+            $paymentOption = $_POST['paymentOption'];
+            $address = $_POST['address'];
+
             $productQuantity = json_decode($productQuantity);
             foreach($productQuantity as $product) {
                 $selectCurrentQuantityQuery = $this->connection->query("SELECT quantity from products where id = $product[0]");
@@ -33,7 +36,9 @@ class OrderSuccessfull extends Connection
                         $userID = $userID['user_id'];
                         $this->connection->query("DELETE from bags where product_id = $product[0] && user_id = $userID");
 
-                        $this->connection->query("INSERT INTO orders (user_id, product_id, quantity) values ($userID, $product[0], $product[1])");
+                        $paymentStatus = $paymentOption === 'cod' ? "pending" : "Successfull";
+
+                        $this->connection->query("INSERT INTO orders (user_id, product_id, quantity, payment_option, payment_status, address_id) values ($userID, $product[0], $product[1], '$paymentOption', '$paymentStatus', $address)");
 
                         $user = $_SESSION['user'];
 
@@ -51,79 +56,48 @@ class OrderSuccessfull extends Connection
                         
                         $sendMailFrom = $email;
                         $sendMailTo = $adminEmail;
-                        $subject = 'Place order';
-                        $body = "<a href='http://localhost/practice/project/views/auth/signin.php'> Signin </a>";
-                        $body .= "<h5>$user order $productName</h5>";
+                        $subject = 'New Order Notification<';
+                        $body = "
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                line-height: 1.6;
+                            }
+                            .container {
+                                max-width: 600px;
+                                margin: auto;
+                                padding: 20px;
+                            }
+                            .order-details {
+                                background-color: #f4f4f4;
+                                padding: 10px;
+                                border-radius: 5px;
+                            }
+                            .btn {
+                                display: inline-block;
+                                padding: 10px 20px;
+                                background-color: #007bff;
+                                color: #fff;
+                                text-decoration: none;
+                                border-radius: 5px;
+                            }
+                            .btn:hover {
+                                background-color: #0056b3;
+                            }
+                        </style>
+                        <div class='container'>
+                            <p>Hello Admin,</p>
+                            <p>A new order has been placed by the user <strong>$user</strong>. The user ordered the following product:</p>
+                            <div class='order-details'>
+                                <p><strong>Product Name:</strong> $productName</p>
+                            </div>
+                            <p>Thank you for your attention.</p>
+                            <p>If you want to view the order details, please sign in to the admin dashboard:</p>
+                            <a href='http://localhost/practice/project/views/auth/signin.php' class='btn'>Sign In to Admin Dashboard</a>
+                            <p>Best regards,<br>Shop ease Team</p>
+                        </div>";
                         
                         $this->sendMail->sendMail($sendMailFrom, $sendMailTo, $subject, $body);
-                        
-                        // $selectOrderQuery = $this->connection->query("SELECT order_alias.id, product.name, product.price, product.discount 
-                        // FROM orders AS order_alias 
-                        // INNER JOIN products AS product ON product.id = order_alias.product_id 
-                        // ORDER BY order_alias.id DESC 
-                        // LIMIT 1 OFFSET 0;");
-
-                        // $row = $selectOrderQuery->fetch_assoc();
-                        // $billNo = $row['id'];
-                        // $productName = $row['name'];
-                        // $discount = $row['price'] * ($row['discount'] / 100) * $product[1];
-                        // $price = ($row['price'] * $product[1])  - $discount;
-
-                        // $sendMailFrom = $adminEmail;
-                        // $sendMailTo = $email;
-                        // $subject = 'Your Order Place successfully';
-                        // $body = "
-                        // <style>
-                        //     .content {
-                        //         display: flex;
-                        //         justify-content: space-evenly;
-                        //     }
-                        //     table {
-                        //         font-family: arial, sans-serif;
-                        //         border-collapse: collapse;
-                        //         width: 100%;
-                        //     }
-                
-                        //     td, th {
-                        //         border: 1px solid #dddddd;
-                        //         text-align: left;
-                        //         padding: 8px;
-                        //     }
-                
-                        //     tr:nth-child(even) {
-                        //         background-color: #dddddd;
-                        //     }
-                        // </style>
-                        // <a href='http://localhost/practice/project/views/users/orders.php'> View Your Order</a>
-                        // <div class='content container'>
-                        //     <table>
-                        //         <tr>
-                        //             <td>Bill no.</td>
-                        //             <td>4</td>
-                        //         </tr>
-                        //         <tr>
-                        //             <td>Product name</td>
-                        //             <td>Portronic</td>
-                        //         </tr>
-                        //         <tr>
-                        //             <td>Quantity</td>
-                        //             <td>1</td>
-                        //         </tr>
-                        //         <tr>
-                        //             <td>Delivery Fees</td>
-                        //             <td>333</td>
-                        //         </tr>
-                        //         <tr>
-                        //             <td>Price</td>
-                        //             <td>232</td>
-                        //         </tr>
-                        //         <tr>
-                        //             <td>Discount</td>
-                        //             <td>333</td>
-                        //         </tr>
-                        //     </table>
-                        // </div>";
-                        // $this->sendMail->sendMail($sendMailFrom, $sendMailTo, $subject, $body);
 
                         $this->status = 200;
                     } else {

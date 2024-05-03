@@ -5,7 +5,6 @@ window.onload = () => {
     const paymentOption = document.querySelectorAll("#payment");
     paymentOption.forEach(payment => {
         payment.addEventListener("change", () => {
-            console.log(payment.value);
             const paymentValue = payment.value;
             if (paymentValue == 'online') {
                 document.getElementsByClassName("spinner")[0].classList.remove('hideLoader');
@@ -13,7 +12,7 @@ window.onload = () => {
                 document.getElementsByClassName("submitPlaceOrder")[0].classList.add("hideLoader");
                 $.ajax ({
                     method: 'POST',
-                    url: `/practice/Project/routes/web.php/v1/placeOrder`,
+                    url: `/Project/routes/web.php/v1/placeOrder`,
                     data: {
                         amount: mrp
                     },
@@ -83,16 +82,19 @@ window.onload = () => {
     $("#sendOTP").click(() => {
         $.ajax ({
             method: "POST",
-            url: `/practice/Project/routes/web.php/v1/sendOTP`,
+            url: `/Project/routes/web.php/v1/sendOTP`,
         })
     });
 
     $("#confirmOTP").click(() => {
         const enterOTP = $("#otp").val();
         console.log(enterOTP);
+        const paymentOption = $("input[name=payment]:checked").val();
+        const address = $("input[name=address]:checked").attr("id");
+
         $.ajax ({
             method: "POST",
-            url: `/practice/Project/routes/web.php/v1/confirmOTP`,
+            url: `/Project/routes/web.php/v1/confirmOTP`,
             data: {
                 enterOTP: enterOTP
             },
@@ -100,12 +102,14 @@ window.onload = () => {
                 console.log(result);
                 if (result.status == 200) {
                     $(".loader").removeClass("hideLoader");
-                    $("#otpForm").addClass("hideLoader");
+                    $("#otpForm").css("display", "none");
                     $.ajax ({
                         method: "POST",
-                        url: `/practice/Project/routes/web.php/v1/orderSuccessfull`,
+                        url: `/Project/routes/web.php/v1/orderSuccessfull`,
                         data: {
-                            quantity: localStorage.getItem("quantity")
+                            quantity: localStorage.getItem("quantity"),
+                            paymentOption: paymentOption,
+                            address: address
                         },
                         success: function(result) {
                             if ( result== 200) {
@@ -128,7 +132,7 @@ window.onload = () => {
 const getAddress = () => {
     $.ajax({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/address`,
+        url: `/Project/routes/web.php/v1/address`,
         success: function(result) {
             if (result.status == 200) {
                 result.address.forEach((value, index) => {
@@ -142,6 +146,10 @@ const getAddress = () => {
                     selectAddress.setAttribute("type", "radio");
                     selectAddress.setAttribute("name", "address");
                     selectAddress.setAttribute("id", value.id);
+
+                    if (index === 0) {
+                        selectAddress.setAttribute("checked", "");
+                    }
 
                     const address = document.createElement("p");
                     document.getElementsByClassName("userAddress")[index].appendChild(address);
@@ -173,7 +181,7 @@ const getAddress = () => {
                         const id = edit.getAttribute("id");
                         $.ajax({
                             method: 'GET',
-                            url: `/practice/Project/routes/web.php/v1/address/${id}`,
+                            url: `/Project/routes/web.php/v1/address/${id}`,
                             success: function(result) {
                                 if (result.status == 200) {
                                     document.getElementById("street").value = result.address[0].street;
@@ -202,7 +210,7 @@ addAddress.addEventListener("click", () => {
     const state = document.getElementById("newState").value;
     $.ajax({
         method: 'POST',
-        url: `/practice/Project/routes/web.php/v1/addAddress`,
+        url: `/Project/routes/web.php/v1/addAddress`,
         data: {
             street: street,
             town: town,
@@ -233,7 +241,7 @@ updateAddress.addEventListener("click", () => {
 
     $.ajax({
         method: 'POST',
-        url: `/practice/Project/routes/web.php/v1/updateAddress/${id}`,
+        url: `/Project/routes/web.php/v1/updateAddress/${id}`,
         data: {
             street: street,
             town: town,

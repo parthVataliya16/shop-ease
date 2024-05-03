@@ -146,7 +146,7 @@
                         <form>
                             <div class="mb-1">
                                 <label for="otp-name" class="col-form-label">OTP:</label>
-                                <input name="otp" id="otp" placeholder="Enter OTP"></input>
+                                <input name="otp" id="otp" placeholder="Enter OTP" maxlength="6"></input>
                             </div>
                             <div class="error text-danger">
                             </div>

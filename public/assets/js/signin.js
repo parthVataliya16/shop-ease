@@ -8,7 +8,7 @@ window.onload = () => {
         const formData = new FormData(form);
         $.ajax({
             method: 'POST',
-            url: `/practice/Project/routes/web.php/v1/login`,
+            url: `/Project/routes/web.php/v1/login`,
             data: formData,
             contentType: false,
             cache: false,

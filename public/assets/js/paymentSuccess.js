@@ -1,7 +1,8 @@
 window.onload = () => {
+    $(".loader").removeClass("hideLoader");
     $.ajax ({
         method: "POST",
-        url: `/practice/Project/routes/web.php/v1/orderSuccessfull`,
+        url: `/Project/routes/web.php/v1/orderSuccessfull`,
         data: {
             quantity: localStorage.getItem("quantity")
         },

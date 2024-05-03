@@ -1,7 +1,7 @@
 window.onload = () => {
     $.ajax({
         method: 'GET',
-        url: '/practice/Project/routes/web.php/v1/getCategory',
+        url: '/Project/routes/web.php/v1/getCategory',
         success: function(result) {
             console.log(result);
             if (result.response.status == 200) {
@@ -36,7 +36,7 @@ form.onsubmit = (event) => {
     const formData = new FormData(form);
     $.ajax({
         method: 'POST',
-        url: '/practice/Project/routes/web.php/v1/addProduct',
+        url: '/Project/routes/web.php/v1/addProduct',
         data: formData,
         contentType: false,
         cache: false,
@@ -60,7 +60,7 @@ form.onsubmit = (event) => {
 const getBrand = (id) => {
     $.ajax({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/getProductBrand/${id}`,
+        url: `/Project/routes/web.php/v1/getProductBrand/${id}`,
         success: function(result) {
             if (result.status == 200) {
                 document.getElementsByClassName("brands")[0].innerHTML = "";

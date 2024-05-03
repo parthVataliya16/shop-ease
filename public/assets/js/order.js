@@ -1,11 +1,9 @@
-// import { productListingInBagAndOrder } from "./functions.js";
-
-import { popupBox, tostifyBox } from "./functions.js";
+import { numberOfProductInBag, popupBox, tostifyBox } from "./functions.js";
 
 window.onload = () => {
     $.ajax({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/productInto-Order`,
+        url: `/Project/routes/web.php/v1/productInto-Order`,
         success: function(result) {
             console.log(result);
             if (result.status == 200) {
@@ -28,12 +26,15 @@ const removeOrder = (id) => {
     console.log("object");
     $.ajax ({
         method: "DELETE",
-        url: `/practice/Project/routes/web.php/v1/cancelOrder/${id}`,
+        url: `/Project/routes/web.php/v1/cancelOrder/${id}`,
         success: function (result) {
             console.log(result);
             if (result == 200) {
+                numberOfProductInBag();
                 window.onload();
-                tostifyBox("Product move to bag");
+                tostifyBox("Product move to bag", "linear-gradient(to right, #ddd6f3 , #faaca8)", "#333");
+            } else {
+                tostifyBox("Something went wrong", "linear-gradient(0deg, #d2f07e 0%, #FFFF00 100%)", "#333");
             }
         }
     })
@@ -117,6 +118,31 @@ const productListing = (products) => {
         document.getElementsByClassName("productPlaceStatus")[index].appendChild(productStatus);
         productStatus.classList.add("productStatus");
         productStatus.innerHTML = `Status: ${product.status}`;
+
+        const deliveryDay = document.createElement("div");
+        document.getElementsByClassName("productDetails")[index].appendChild(deliveryDay);
+        deliveryDay.classList.add("deliveryDay");
+
+        if (product.status == 'accepted') {
+            const days = document.createElement("p");
+            document.getElementsByClassName("productPlaceStatus")[index].appendChild(days);
+            days.classList.add("days");
+            
+            if (product.delivery_day === 'nextDay') {
+                days.innerHTML = `Expected delivery day: Next Day`;
+            } else if (product.delivery_day === 'withInThree') {
+                days.innerHTML = `Expected delivery day: With In 3 Days`;
+            } else if (product.delivery_day === 'withInFive') {
+                days.innerHTML = `Expected delivery day: With In 5 Days`;
+            } else if (product.delivery_day === 'withInWeek') {
+                days.innerHTML = `Expected delivery day: With In Week`;
+            } else {
+                days.innerHTML = `Expected delivery day: With In 15 Days`;
+            }
+        }
+
+
+
 
         if (product.status != 'delivered') {
             const cancelOrder = document.createElement("p");

@@ -1,6 +1,7 @@
 <nav class="sidebar hideLoader">
     <ul>
         <li><a class="dashboard sidebarActive" href="dashboard.php">Dashboard</a></li>
+        <li><a class="product" href="product.php">Products</a></li>
         <li><a class="order" href="order.php">Orders</a></li>
         <li><a class="category" href="category.php">Categories</a></li>
         <li><a class="brand" href="brand.php">Brands</a></li>

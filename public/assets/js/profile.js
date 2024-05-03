@@ -3,7 +3,7 @@ import { tostifyBox } from "./functions.js";
 $(document).ready(function() {
     $.ajax({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/profile`,
+        url: `/Project/routes/web.php/v1/profile`,
         success: function (result) {
             console.log(result);
             if (result.status == 200) {
@@ -77,7 +77,7 @@ $(document).ready(function() {
                 event.preventDefault();
                 $.ajax({
                     method: "POST",
-                    url: `/practice/Project/routes/web.php/v1/update`,
+                    url: `/Project/routes/web.php/v1/update`,
                     data: {
                         firstName: $("#fname").val(),
                         lastName: $("#lname").val(),
@@ -87,7 +87,7 @@ $(document).ready(function() {
                     },
                     success: function(result) {
                         if (result.status == 200) {
-                            tostifyBox("Profile updated successfully!", "linear-gradient(#7e49e5, #a0dfff)")
+                            tostifyBox("Profile updated successfully!", "linear-gradient(to right, #CCCCCC, #888888)")
                         } else {
                             tostifyBox("Something went wrong!", "linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)");
                         }

@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     $.ajax({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/getProduct?id=${id}`,
+        url: `/Project/routes/web.php/v1/getProduct?id=${id}`,
         success: function(result) {
             console.log(result);
             if (result.response.status == 200) {
@@ -54,7 +54,7 @@ $(document).ready(function() {
 const categoricalProducts = (categoryId) => {
     $.ajax ({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/categoricalProduct/${categoryId}`,
+        url: `/Project/routes/web.php/v1/categoricalProduct/${categoryId}`,
         success: function (result) {
             console.log(result);
             if (result.status == 200) {

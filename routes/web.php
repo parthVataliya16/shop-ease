@@ -17,9 +17,9 @@ require_once './../Controllers/Auth/ResetPassword.php';
 require_once './../Controllers/Admin/AddProduct.php';
 require_once './../Controllers/Admin/DeleteProduct.php';
 require_once './../Controllers/Admin/UpdateProduct.php';
-require_once './../Controllers/Admin/AllOrders.php';
 require_once './../Controllers/Admin/AddNewCategory.php';
 require_once './../Controllers/Admin/DeleteCategory.php';
+require_once './../Controllers/Admin/Graph.php';
 
 require_once './../Controllers/User/GetProductToUser.php';
 require_once './../Controllers/User/Products.php';
@@ -47,6 +47,7 @@ require_once './../Controllers/GetProduct.php';
 require_once './../Controllers/Profile.php';
 require_once './../Controllers/UpdateProfile.php';
 require_once './../Controllers/ProductBrand.php';
+require_once './../Controllers/Orders.php';
 
 
 require_once './../middleware/sanitizeData.php';
@@ -71,7 +72,7 @@ if ($lengthOfMatchesArr >= 2) {
     $price = require_once "./../config/$categoryName.php";
 }
 
-preg_match("/^\/v1\/addToCart\/(\d+)$|^\/v1\/removeProductFromCart\/(\d+)$|^\/v1\/getProduct\/(\d+)$|^\/v1\/addToBag\/(\d+)$|^\/v1\/removeProductFromBag\/(\d+)$|^\/v1\/address\/(\d+)$|^\/v1\/updateAddress\/(\d+)$|^\/v1\/categoricalProduct\/(\d+)$|^\/v1\/getProductBrand\/(\d+)$|^\/v1\/deleteCategory\/(\d+)$|^\/v1\/getCategory\/(\d+)$|^\/v1\/updateCategory\/(\d+)$|^\/v1\/deleteBrand\/(\d+)$|^\/v1\/getBrand\/(\d+)$|^\/v1\/updateBrand\/(\d+)$|^\/v1\/cancelOrder\/(\d+)$/", $endpoint, $matches);
+preg_match("/^\/v1\/addToCart\/(\d+)$|^\/v1\/removeProductFromCart\/(\d+)$|^\/v1\/getProduct\/(\d+)$|^\/v1\/addToBag\/(\d+)$|^\/v1\/removeProductFromBag\/(\d+)$|^\/v1\/address\/(\d+)$|^\/v1\/updateAddress\/(\d+)$|^\/v1\/categoricalProduct\/(\d+)$|^\/v1\/getProductBrand\/(\d+)$|^\/v1\/deleteCategory\/(\d+)$|^\/v1\/getCategory\/(\d+)$|^\/v1\/updateCategory\/(\d+)$|^\/v1\/deleteBrand\/(\d+)$|^\/v1\/getBrand\/(\d+)$|^\/v1\/updateBrand\/(\d+)$|^\/v1\/cancelOrder\/(\d+)$|^\/v1\/updateOrderStatus\/(\d+)$|^\/v1\/getProductData\/(\d+)$|\/v1\/order\/(\d+)$/", $endpoint, $matches);
 $id = 0;
 $lengthOfMatchesArr = count($matches);
 
@@ -155,13 +156,16 @@ switch ($serverRequest) {
                 echo $confirmOTP->confirmOTP();
                 break;
             case "/v1/forgotPassword":
-                echo "1";
                 $forgotPassword = new ForgotPassword();
                 echo $forgotPassword->forgotPassword();
                 break;
             case '/v1/resetPassword':
                 $resetPassword = new ResetPassword();
                 echo $resetPassword->resetPassword($_GET['token']);
+                break;
+            case "/v1/updateOrderStatus/{$id}":
+                $updateOrderStatus = new Orders();
+                echo $updateOrderStatus->updateOrderStatus($id);
                 break;
         }
         break;
@@ -189,7 +193,7 @@ switch ($serverRequest) {
                     echo $getProductDetail->getProduct();
                 }
                 break;
-            case "/v1/getProduct/{$id}":
+            case "/v1/getProductData/{$id}":
                 $getProductDetail = new GetProduct();
                 echo $getProductDetail->getProduct($id);
                 break;
@@ -255,7 +259,7 @@ switch ($serverRequest) {
                 echo $dealProducts->dealProducts();
                 break;
             case "/v1/allOrders":
-                $allOrders = new AllOrders();
+                $allOrders = new Orders();
                 echo $allOrders->allOrders();
                 break;
             case "/v1/filterProduct":
@@ -276,7 +280,18 @@ switch ($serverRequest) {
                 $linkExpire = new LinkExpire();
                 echo $linkExpire->linkExpire($_GET['token']);
                 break;
-            
+            case "/v1/order/{$id}":
+                $order = new Orders();
+                echo $order->getOrder($id);
+                break;
+            case "/v1/orderGraph":
+                $graph = new Graph();
+                echo $graph->orderGraph();
+                break;
+            case "/v1/mostFavourite":
+                $graph = new Graph();
+                echo $graph->mostFavourite();
+                break;
         }
         break;
 

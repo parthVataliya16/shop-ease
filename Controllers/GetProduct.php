@@ -14,7 +14,7 @@ class GetProduct extends Connection
             $allProduct = [];
             if ($category == "") {
                 if($id) {
-                    $product = $this->connection->query("SELECT id, name, price, discount, brand_id, category_id from products where id = $id");
+                    $product = $this->connection->query("SELECT id, name, price, discount, brand_id, category_id, quantity, description from products where id = $id");
                     $productImage = $this->connection->query("SELECT name from product_images where product_id = $id");
     
                     if ($product->num_rows) {

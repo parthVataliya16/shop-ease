@@ -19,7 +19,7 @@
         <div class="wrapper">
             <div class="inner">
                 <form id="productUpdateForm">
-                    <h3>Registration Form</h3>
+                    <h3>Update Product</h3>
                     <div class="form-wrapper">
                         <div class="productName d-flex flex-column">
                             <label class="form-label" for="name">Enter product name</label>
@@ -62,7 +62,7 @@
                     <div class="form-wrapper">
                         <div class="description">
                             <label for="description">Enter description: </label>
-                            <textarea class="form-control" name="description" id="productDescription" cols="30" rows="3"></textarea>
+                            <textarea class="form-control" name="description" id="productDescription" cols="30" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="form-wrapper">

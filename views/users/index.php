@@ -8,7 +8,6 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
         <link rel="stylesheet" href="./../../public/assets/css/navbar.css">
         <link rel="stylesheet" href="./../../public/assets/css/index.css">
-        <link rel="stylesheet" href="./../../public/assets/css/body.css">
         <title>Document</title>
     </head>
     <body>
@@ -96,4 +95,5 @@
     <script src="https://kit.fontawesome.com/830d1515a6.js" crossorigin="anonymous"></script>
     <script src="./../../public/assets/js/navbar.js" type="module"></script>
     <script src="./../../public/assets/js/index.js" type="module"></script>
+    <link rel="stylesheet" href="./../../public/assets/css/body.css">
 </html>

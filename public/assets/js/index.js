@@ -25,7 +25,7 @@ $(document).ready(function() {
 
     $.ajax({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/dealProducts`,
+        url: `/Project/routes/web.php/v1/dealProducts`,
         success: function(result) {
             console.log(result);
             if (result.status == 200) {
@@ -49,7 +49,7 @@ $(document).ready(function() {
 const categoryViseProduct = (category, className) => {
     $.ajax({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/getProduct/${category}`,
+        url: `/Project/routes/web.php/v1/getProduct/${category}`,
         success: function(result) {
             console.log(result);
             if (result.response.status == 200) {

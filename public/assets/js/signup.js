@@ -10,7 +10,7 @@ window.onload = () => {
         if (password === confirmPassword) {
             $.ajax({
                 method: 'POST',
-                url: '/practice/Project/routes/web.php/v1/register',
+                url: '/Project/routes/web.php/v1/register',
                 data: formData,
                 contentType: false,
                 cache: false,

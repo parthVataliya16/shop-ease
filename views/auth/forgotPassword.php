@@ -10,6 +10,7 @@
         <title>Document</title>
     </head>
     <body>
+        <?php require_once './layout/loader.php'; ?>
         <div class="wrapper forgotPasswordForm" id="form">
             <div class="mailSend">
                 <p id="text"></p>

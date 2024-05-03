@@ -3,7 +3,7 @@ import { tostifyBox } from "./functions.js";
 window.onload = () => {
     $.ajax ({
         method: "GET",
-        url: `/practice/Project/routes/web.php/v1/getBrand`,
+        url: `/Project/routes/web.php/v1/getBrand`,
         success: function(result) {
             console.log(result);
             if (result.status == 200) {
@@ -65,7 +65,7 @@ window.onload = () => {
                         document.getElementById("updateBrand").setAttribute("data", id);
                         $.ajax ({
                             method:"GET",
-                            url: `/practice/Project/routes/web.php/v1/getBrand/${id}`,
+                            url: `/Project/routes/web.php/v1/getBrand/${id}`,
                             success: function(result) {
                                 console.log(result);
                                 if (result.status == 200) {
@@ -100,7 +100,7 @@ window.onload = () => {
                     const brandName = document.getElementById("updatedBrand").value;
                     $.ajax ({
                         method: "POST",
-                        url: `/practice/Project/routes/web.php/v1/updateBrand/${id}`,
+                        url: `/Project/routes/web.php/v1/updateBrand/${id}`,
                         data: {
                             categoryName: categoryName,
                             brandName: brandName
@@ -146,7 +146,7 @@ window.onload = () => {
     const deleteBrand = (id) => {
         $.ajax ({
             method: "DELETE",
-            url: `/practice/Project/routes/web.php/v1/deleteBrand/${id}`,
+            url: `/Project/routes/web.php/v1/deleteBrand/${id}`,
             success: function(result) {
                 console.log(result);
             }
@@ -155,7 +155,7 @@ window.onload = () => {
 
     $.ajax({
         method: 'GET',
-        url: '/practice/Project/routes/web.php/v1/getCategory',
+        url: '/Project/routes/web.php/v1/getCategory',
         success: function(result) {
             console.log(result);
             if (result.response.status == 200) {
@@ -186,7 +186,7 @@ window.onload = () => {
         const category = document.getElementById("category").value;
         $.ajax ({
             method: "POST",
-            url: `/practice/Project/routes/web.php/v1/addBrand`,
+            url: `/Project/routes/web.php/v1/addBrand`,
             data: {
                 brandName: brandName,
                 category: category

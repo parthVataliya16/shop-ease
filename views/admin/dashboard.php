@@ -13,39 +13,20 @@
         <title>Document</title>
     </head>
     <body>
-        <?php
+    <?php
         require_once './../../middleware/checkUserLogin.php';
 
         if (loginSuccessfully('admin')) {
             require_once './layout/navbar.php';
             require_once './layout/sidebar.php';
-            require_once './layout/loader.php';
+            // require_once './layout/loader.php';
         ?>
-            <section class="container-fluid productTable hideLoader">
-                <table class="table">
-                    <thead>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>discount (in %)</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Brand</th>
-                        <th>Action</th>
-                        <!-- <th></th> -->
-                    </thead>
-                    <tbody class="products">
-                        
-                    </tbody>
-                    <div>
-                        <span class="text-danger" id="error"></span>
-                    </div>
-                </table>
-            </section>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+            <canvas id="myChart" style="width:100%; max-width:550px"></canvas>
+            
+            <canvas id="mostFavourite" style="width:100%; max-width:550px"></canvas>
+        </div>
         <?php
-        } else {
-            header("location: ./../auth/signin.php");
-            exit;
         }
         ?>
     </body>
@@ -55,6 +36,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://kit.fontawesome.com/830d1515a6.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="./../../public/assets/js/adminNavbar.js"></script>
     <script src="./../../public/assets/js/sidebar.js"></script>
     <script src="./../../public/assets/js/dashboard.js"></script>

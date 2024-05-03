@@ -3,7 +3,7 @@ import { tostifyBox } from "./functions.js";
 window.onload = () => {
     $.ajax ({
         method: "GET",
-        url: "/practice/Project/routes/web.php/v1/getCategory",
+        url: "/Project/routes/web.php/v1/getCategory",
         success: function(result) {
             console.log(result);
             if (result.response.status == 200) {
@@ -67,7 +67,7 @@ window.onload = () => {
                         document.getElementById("updateCategoryName").setAttribute("data", id);
                         $.ajax ({
                             method:"GET",
-                            url: `/practice/Project/routes/web.php/v1/getCategory/${id}`,
+                            url: `/Project/routes/web.php/v1/getCategory/${id}`,
                             success: function(result) {
                                 if (result.response.status == 200) {
                                     document.getElementById("catName").value = result.categories[0].name;
@@ -94,7 +94,7 @@ window.onload = () => {
                     const categoryName = document.getElementById("catName").value;
                     $.ajax ({
                         method: "POST",
-                        url: `/practice/Project/routes/web.php/v1/updateCategory/${id}`,
+                        url: `/Project/routes/web.php/v1/updateCategory/${id}`,
                         data: {
                             categoryName: categoryName
                         },
@@ -139,7 +139,7 @@ window.onload = () => {
     const deleteCategory = (id) => {
         $.ajax ({
             method: "DELETE",
-            url: `/practice/Project/routes/web.php/v1/deleteCategory/${id}`,
+            url: `/Project/routes/web.php/v1/deleteCategory/${id}`,
             success: function(result) {
                 console.log(result);
             }
@@ -152,7 +152,7 @@ window.onload = () => {
         const categoryName = document.getElementById("categoryName").value;
         $.ajax ({ 
             method: "POST",
-            url: "/practice/Project/routes/web.php/v1/addNewCategory",
+            url: "/Project/routes/web.php/v1/addNewCategory",
             data: {
                 categoryName : categoryName
             },

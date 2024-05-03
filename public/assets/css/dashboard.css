@@ -1,66 +1,8 @@
-
-.productTable {
-    margin-top: 2%;
-}
-
-th, td {
-    text-align: center;
-}
-
-.dropdown {
-    position: relative;
-}
-  
-.dropdownButtons {
-    display: none;
-    position: absolute;
-    background-color: #fff3f3;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    width: 75px;
-}
-
-.dropdownButtons a {
-    color: black;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown:hover .dropdownButtons {
-    display: flex;
-    flex-direction: column;
-}
-
-.dropdown:hover .actionButton {
-    background-color: #00c47c;
-    color: #ffffff;
-    background-color: #009961;
-    padding: 5% 25%;
-}
-
-.dropdown .dropdownButtons .deleteButton, .updateButton {
-    margin: 10% 5%;
-}
-
-.actionButton {
-    background-color: #ffffff;
-    color: #00c47c;
-    border: 2px solid;
-    border-radius: 10px;
-    padding: 5% 25%;
-}
-
-.dataTables_wrapper{
-    transition: margin-left 1s;
+#myChart {
     margin-left: 15%;
-    padding: 1px 16px;
-/* margin-top: 130px; */
+    margin-top: 3%;
 }
 
-.table {
-width: 100% !important;
-}
-
-.dataTables_scrollHeadInner {
-width: 100% !important;
+#mostFavourite {
+    margin-top: 3%;
 }

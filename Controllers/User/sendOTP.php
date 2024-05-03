@@ -18,9 +18,10 @@ class SendOTP extends Connection
             $adminEmail = $adminEmail['email_id'];
 
             $user = $_SESSION['user'];
-            $userEmailQuery = $this->connection->query("SELECT id, email_id from users where email_id = '$user' || user_name = '$user'");
+            $userEmailQuery = $this->connection->query("SELECT id, email_id, first_name from users where email_id = '$user' || user_name = '$user'");
             $user = $userEmailQuery->fetch_assoc();
             $userEmail = $user['email_id'];
+            $name = $user['first_name'];
             $userID = $user['id'];
             $createAT = date("Y-m-d H:i:s");
 
@@ -33,10 +34,39 @@ class SendOTP extends Connection
 
             $sendMailFrom = $adminEmail;
             $sendMailTo = $userEmail;
-            $subject = 'OTP Confirmation For Order Place';
-            $body = "<h5>Your OTP is:</h5>";
-            $body .= "<p>$otp</p>";
-            $body .= "<p>OTP is valid for 10 minutes.</p>";
+            $subject = 'OTP Verification For Order Place';
+            $body = "
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                }
+                .container {
+                    max-width: 600px;
+                    margin: auto;
+                    padding: 20px;
+                }
+                .otp-container {
+                    background-color: #f4f4f4;
+                    padding: 10px;
+                    border-radius: 5px;
+                    text-align: center;
+                }
+                .otp {
+                    font-size: 24px;
+                    font-weight: bold;
+                }
+            </style>
+            <div class='container'>
+                <p>Hello $name,</p>
+                <p>Your OTP for verification is:</p>
+                <div class='otp-container'>
+                    <span class='otp'>$otp</span>
+                </div>
+                <p>Please use this OTP to verify your identity.</p>
+                <p>If you didn't request this OTP, please ignore this email.</p>
+                <p>Best regards,<br>Shop ease Team</p>
+            </div>";
 
             $this->sendMail->sendMail($sendMailFrom, $sendMailTo, $subject, $body);
 

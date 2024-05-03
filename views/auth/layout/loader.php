@@ -12,12 +12,7 @@
     height: 100vh;
     width: 100%;
     background-color: #e7e2e257;
-    z-index: 9999;
-    top: 0;
-}
-
-.hideLoader {
-   display: none;
+    z-index: 2;
 }
 
 .spinner {

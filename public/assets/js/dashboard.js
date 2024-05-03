@@ -1,182 +1,118 @@
-$(document).ready(function () {
-  $.ajax({
-    method: "GET",
-    url: "/practice/Project/routes/web.php/v1/getProduct",
-    success: function (result) {
-      // console.log(result);
-      if (result.response.status == 200) {
-        $(".loader").addClass("hideLoader");
-        $(".productTable").removeClass("hideLoader");
-        $(".sidebar").removeClass("hideLoader");
-      
-        productListing(result.products);
-        
-        const deleteButtons = document.querySelectorAll(".deleteButton");
-        deleteButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            const id = button.getAttribute("id").slice(4);
-            deleteProductPopup(id);
-          });
-        });
+$(document).ready(function() {
+    $.ajax ({
+        method: "GET",
+        url: "/Project/routes/web.php/v1/orderGraph", // Adjust the URL path as needed
+        success: function (result) {
+            console.log(result);
+            if (result && result.status === 200 && result.products) {
+                let labels = [];
+                let values = [];
 
-        new DataTable(".table", {
-          columnDefs: [{ orderable: false, targets: [0, 7] }],
-          order: [[0, "asc"]],
-          scrollX: true,
-        });
-      } else {
-        document.querySelector(".products").innerHTML = result.response.message;
-      }
-    },
-  });
+                for (let i = 0; i < 10; i += 2) {
+                    let product = result.products[i];
+                    let quantity = result.products[i + 1];
+
+                    labels.push(product.length >= 15 ? product.slice(0, 15) : product);
+                    values.push(quantity);
+                }
+
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Quantity',
+                            data: values,
+                            backgroundColor: 'blue', // Adjust color as needed
+                        }]
+                    },
+                    options: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: "Top Selling"
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return tooltipItem.yLabel;
+                                }
+                            }
+                        }
+                    }
+                });        
+            } else {
+                console.error("Invalid data received from the server.");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error occurred. Status:", status, "Error:", error);
+        }
+    });
+    $.ajax({
+        method: "GET",
+        url: "/Project/routes/web.php/v1/mostFavourite",
+        success: function(result) {
+            console.log(result);
+            if (result && result.status === 200 && result.product) {
+                let labels = [];
+                let values = [];
+                const barColors = [
+                    "#b91d47",
+                    "#00aba9",
+                    "#2b5797",
+                    "#e8c3b9",
+                    "#1e7145"
+                ];
+    
+                result.product.forEach(product => {
+                    labels.push(product.name.length >= 15 ? product.name.slice(0, 15) : product.name);
+                    values.push(product.number_of_product);
+                });
+    
+                var ctx = document.getElementById('mostFavourite').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: values,
+                            backgroundColor: barColors.slice(0, values.length), // Adjust color as needed
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: "Most Favorite Products"
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                                    var total = dataset.data.reduce((previousValue, currentValue) => previousValue + currentValue);
+                                    var currentValue = dataset.data[tooltipItem.index];
+                                    var percentage = Math.floor(((currentValue / total) * 100) + 0.5); // Round to nearest integer
+                                    return `${data.labels[tooltipItem.index]}: ${currentValue} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.error("Invalid data received from the server.");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error occurred. Status:", status, "Error:", error);
+        }
+    });
+    
 });
-
-const deleteProductPopup = (id) => {
-  Swal.fire({
-    title: "Are you sure to delete this product?",
-    text: "You won't be able to retrive this product!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete!",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      deleteProduct(id);
-      Swal.fire({
-        title: "Deleted!",
-        text: "product deleted successfully!",
-        icon: "success",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.reload();
-        }
-      });
-    }
-  });
-};
-
-const productListing = (products) => {
-  console.log(products);
-  products.forEach((product) => {
-    const row = document.createElement("tr");
-    document.getElementsByClassName("products")[0].appendChild(row);
-    row.classList.add("productData", "p-2");
-
-    const rowNumber = document.getElementsByClassName("productData").length;
-
-    for (const index in product) {
-      if (index == "id" || index == "category_id") {
-        continue;
-      }
-      const data = document.createElement("td");
-      document
-        .getElementsByClassName("productData")
-        [rowNumber - 1].appendChild(data);
-      data.classList.add(`${index}`);
-      if (product[index] == null || product[index] == "") {
-        data.innerHTML = "NA";
-      } else {
-        if (product[index].length > 40) {
-          data.innerHTML = `${product[index].slice(0, 40)}...`;
-        } else {
-          data.innerHTML = product[index];
-        }
-      }
-    }
-
-    const actionOnproductData = document.createElement("td");
-    document
-      .getElementsByClassName("productData")
-      [rowNumber - 1].appendChild(actionOnproductData);
-    actionOnproductData.classList.add("actionOnproductData", "dropdown");
-
-    const numberOfActionOnproductDataClass = document.getElementsByClassName(
-      "actionOnproductData"
-    ).length;
-    const actionButton = document.createElement("button");
-    document
-      .getElementsByClassName("actionOnproductData")
-      [numberOfActionOnproductDataClass - 1].appendChild(actionButton);
-    actionButton.classList.add("actionButton");
-    actionButton.innerHTML = "Action";
-
-    const dropdownButtons = document.createElement("div");
-    document
-      .getElementsByClassName("actionOnproductData")
-      [numberOfActionOnproductDataClass - 1].appendChild(dropdownButtons);
-    dropdownButtons.classList.add("dropdownButtons");
-
-    const numberOfDropdownButtons =
-      document.getElementsByClassName("dropdownButtons").length;
-    const deleteButton = document.createElement("button");
-    document
-      .getElementsByClassName("dropdownButtons")
-      [numberOfDropdownButtons - 1].appendChild(deleteButton);
-    deleteButton.classList.add("btn", "btn-danger", "deleteButton");
-    deleteButton.setAttribute("id", `btn_${product.id}`);
-    deleteButton.innerHTML = "Delete";
-
-    const updateButton = document.createElement("button");
-    document
-      .getElementsByClassName("dropdownButtons")
-      [numberOfDropdownButtons - 1].appendChild(updateButton);
-    updateButton.classList.add("btn", "btn-primary", "updateButton");
-
-    const numberOfUpdateButtonClass =
-      document.getElementsByClassName("updateButton").length;
-    const updateproduct = document.createElement("a");
-    document
-      .getElementsByClassName("updateButton")
-      [numberOfUpdateButtonClass - 1].appendChild(updateproduct);
-    updateproduct.classList.add("update", "text-decoration-none", "text-light");
-    updateproduct.setAttribute("id", `update_${product.id}`);
-    updateproduct.setAttribute("href", `updateProduct.php?id=${product.id}`);
-    updateproduct.innerHTML = "Update";
-    //
-    // const deleteData = document.createElement("td");
-    // document.getElementsByClassName("productData")[rowNumber - 1].appendChild(deleteData);
-    // deleteData.classList.add("deleteData");
-
-    // const deleteButtonNumber = document.getElementsByClassName("deleteData").length;
-    // const deleteButton = document.createElement("button");
-    // document.getElementsByClassName("deleteData")[deleteButtonNumber - 1].appendChild(deleteButton);
-    // deleteButton.classList.add("btn", "btn-danger", "deleteButton");
-    // deleteButton.setAttribute("id", `btn_${product.id}`)
-    // deleteButton.innerHTML = "Delete";
-
-    // const updateData = document.createElement("td");
-    // document.getElementsByClassName("productData")[rowNumber - 1].appendChild(updateData);
-    // updateData.classList.add("updateData")
-
-    // const updateButtonNumber = document.getElementsByClassName("updateData").length;
-    // const update = document.createElement("a");
-    // document.getElementsByClassName("updateData")[updateButtonNumber - 1].appendChild(update);
-    // update.classList.add("update");
-    // update.setAttribute("href", `updateProduct.php?id=${product.id}`);
-
-    // const updateButton = document.createElement("button");
-    // document.getElementsByClassName("update")[updateButtonNumber - 1].appendChild(updateButton);
-    // updateButton.classList.add("btn", "btn-secondary", "updateButton");
-    // updateButton.setAttribute("id", `btn_${product.id}`)
-    // updateButton.innerHTML = "Update";
-  });
-};
-
-const deleteProduct = (id) => {
-  console.log(id);
-  $.ajax({
-    method: "DELETE",
-    url: `/practice/Project/routes/web.php/v1/deleteProduct?id=${id}`,
-    success: function (result) {
-      console.log(result);
-      if (result.status == 200) {
-        document.getElementsByClassName("products")[0].innerHTML = "";
-        window.location.reload();
-      } else {
-        document.getElementsByClassName("products")[0].innerHTML =
-          result.message;
-      }
-    },
-  });
-};

@@ -3,7 +3,7 @@ import {tostifyBox, addToBag, popupBox} from "./functions.js";
 window.onload = () => {
     $.ajax({
         method: 'GET',
-        url: `/practice/Project/routes/web.php/v1/productInto-Cart`,
+        url: `/Project/routes/web.php/v1/productInto-Cart`,
         success: function(result) {
             console.log("object");
             console.log(result);
@@ -160,7 +160,7 @@ const removeFromCart = (id) => {
     console.log(id);
     $.ajax({
         method: 'DELETE',
-        url: `/practice/Project/routes/web.php/v1/removeProductFromCart/${id}`,
+        url: `/Project/routes/web.php/v1/removeProductFromCart/${id}`,
         success: function(result) {
             console.log(result);
             if (result.status == 200) {

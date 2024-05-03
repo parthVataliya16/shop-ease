@@ -19,7 +19,7 @@ class Products extends Connection
                 $row = $selectUserIdQuery->fetch_assoc();
                 $suerId = $row['id'];
                 if ($tableName == 'orders') {
-                    $productIdIntoCartQuery = $this->connection->query("SELECT id, product_id, status from " . $tableName . " where user_id = $suerId");
+                    $productIdIntoCartQuery = $this->connection->query("SELECT id, product_id, status, delivery_day from " . $tableName . " where user_id = $suerId");
                 } else {
                     $productIdIntoCartQuery = $this->connection->query("SELECT product_id from " . $tableName . " where user_id = $suerId");
                 }
@@ -31,8 +31,12 @@ class Products extends Connection
                             $status = $row['status'];
                         }
                         
-                        if (isset($row['status'])) {
+                        if (isset($row['id'])) {
                             $id = $row['id'];
+                        }
+
+                        if (isset($row['delivery_day'])) {
+                            $deliveryDay = $row['delivery_day'];
                         }
 
                         $selectProductQuery = $this->connection->query("SELECT id, name, thumbnail, price, quantity, brand_id, discount from products where id = $productId");
@@ -46,6 +50,10 @@ class Products extends Connection
                             
                             if (isset($id)) {
                                 $row['order_id'] = $id;
+                            }
+
+                            if (isset($deliveryDay)) {
+                                $row['delivery_day'] = $deliveryDay;
                             }
                             array_push($productsArr, $row);
                         }
